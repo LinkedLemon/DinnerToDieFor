@@ -4,7 +4,7 @@ public class EspionageEnums : MonoBehaviour
 {
     public enum EspionageType
     {
-        none,poison,truth
+        none,poison,truth,Allergies
     }
 
     public enum Allergies

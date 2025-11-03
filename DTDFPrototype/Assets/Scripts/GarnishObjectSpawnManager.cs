@@ -87,6 +87,13 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
 
         currentFollowingObject = Instantiate(objectToSpawnPrefab);
 
+        ObjectSpawner_InputSystem spawner = currentFollowingObject.GetComponent<ObjectSpawner_InputSystem>();
+
+        if (spawner != null)
+        {
+            Destroy(spawner);
+        }
+
         if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
         {
             Debug.LogWarning("Prefab was missing a Rigidbody. Adding one automatically.", currentFollowingObject);
@@ -110,9 +117,12 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
 
         // Project the ray onto our mathematical plane
-        if (spawnPlane.Raycast(ray, out float distance))
+        bool hit = spawnPlane.Raycast(ray, out float distance);
+        Debug.Log(hit);
+        if (hit)
         {
             Vector3 worldPosition = ray.GetPoint(distance);
+            Debug.Log(worldPosition);
             currentFollowingObject.transform.position = worldPosition;
         }
     }
