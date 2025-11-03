@@ -35,9 +35,7 @@ public class TrayPositionManager : MonoBehaviour
     private void Start()
     {
         // Start the debug loop only in the editor
-#if UNITY_EDITOR
-        StartCoroutine(DebugLoop());
-#endif
+        SendOrder();
     }
 
     /// <summary>

@@ -4,6 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Tray
+  - Bowl
+  - Plate
+  - Bell
   - Garnish
   layers:
   - Default
@@ -12,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - MaterialDebug
   - 
   - 
   - 
