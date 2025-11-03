@@ -1,10 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem; // <-- Required for the new Input System
-
-/// <summary>
-/// Spawns a prefab using the new Input System.
-/// Listens for events from a PlayerInput component.
-/// </summary>
 public class ObjectSpawner_InputSystem : MonoBehaviour
 {
     [Header("Spawning Settings")]
@@ -18,65 +14,72 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
     private GameObject currentFollowingObject;
     private Rigidbody currentObjectRigidbody;
     private Camera mainCamera;
-    private Plane spawnPlane; // A mathematical plane at our fixed Y-height
+    private Plane spawnPlane;
 
     void Awake()
     {
         mainCamera = Camera.main;
         
-        // Create a plane positioned at our fixed Y-height, facing upwards
         spawnPlane = new Plane(Vector3.up, new Vector3(0, spawnYPosition, 0));
-        
-        if (InputManager.Instance != null && InputManager.Instance.JumpAction != null)
+    }
+
+    private void OnEnable()
+    {
+        if (InputManager.Instance != null && InputManager.Instance.AttackAction != null)
         {
-            // Subscribe to the 'performed' event.
-            // This event fires once when the button is pressed.
-            InputManager.Instance.AttackAction.performed += OnDrop;
+            BindAction();
+        }
+        else
+        {
+            StartCoroutine(BindWhenReady());
         }
     }
 
+    private void OnDisable()
+    {
+        if (InputManager.Instance != null && InputManager.Instance.AttackAction != null)
+        {
+            InputManager.Instance.AttackAction.performed -= OnDrop;
+            Debug.Log("Unbinded attack from drop");
+        }
+    }
+
+    private IEnumerator BindWhenReady()
+    {
+        yield return new WaitUntil(() => InputManager.Instance != null && InputManager.Instance.AttackAction != null);
+        
+        BindAction();
+    }
+
+    private void BindAction()
+    {
+        InputManager.Instance.AttackAction.performed -= OnDrop;
+        InputManager.Instance.AttackAction.performed += OnDrop;
+        
+        Debug.Log("Binded attack to drop");
+    }
+    
     void Update()
     {
-        // If we are currently holding an object, update its position
         if (currentFollowingObject != null)
         {
             UpdateFollowingPosition();
         }
     }
-
-    // --- INPUT SYSTEM EVENT HANDLERS ---
-    // These methods are public so the PlayerInput component can call them.
-
-    /// <summary>
-    /// This method should be linked to your "Attack" (Left Click) Action.
-    /// </summary>
-    public void OnDrop(InputAction.CallbackContext context)
+    
+    private void OnDrop(InputAction.CallbackContext context)
     {
-        // We only drop if the action was "performed" (i.e., button pressed)
-        // and we are actually holding an object.
+        Debug.Log("Dropping object");
         if (context.performed && currentFollowingObject != null)
         {
             DropObject();
         }
     }
-
-    /// <summary>
-    /// This method should be linked to your "Spawn" (e.g., Right Click) Action.
-    /// </summary>
-    public void OnSpawn(InputAction.CallbackContext context)
-    {
-        // Only spawn on "performed" (button pressed)
-        if (context.performed)
-        {
-            SpawnObject();
-        }
-    }
-
+    
     // --- CORE LOGIC ---
 
     public void SpawnObject()
     {
-        // Don't spawn a new object if we're already holding one
         if (currentFollowingObject != null) return; 
 
         if (objectToSpawnPrefab == null)
@@ -92,24 +95,19 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
             Debug.LogWarning("Prefab was missing a Rigidbody. Adding one automatically.", currentFollowingObject);
             currentObjectRigidbody = currentFollowingObject.AddComponent<Rigidbody>();
         }
-
-        // "Freeze" the object
+        
         currentObjectRigidbody.isKinematic = true;
         currentObjectRigidbody.useGravity = false;
-
-        // Immediately update its position to the mouse
+        
         UpdateFollowingPosition();
     }
     
     private void UpdateFollowingPosition()
     {
-        // Get mouse position from the new Input System
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
-        
-        // Create a ray from the camera through the mouse pointer
-        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
 
-        // Project the ray onto our mathematical plane
+        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
+        
         if (spawnPlane.Raycast(ray, out float distance))
         {
             Vector3 worldPosition = ray.GetPoint(distance);
@@ -120,12 +118,10 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
     private void DropObject()
     {
         if (currentObjectRigidbody == null) return;
-
-        // "Unfreeze" the object
+        
         currentObjectRigidbody.isKinematic = false;
         currentObjectRigidbody.useGravity = true;
-
-        // Release our control
+        
         currentFollowingObject = null;
         currentObjectRigidbody = null;
     }

@@ -1,25 +1,13 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Required for the new Input System
+using UnityEngine.InputSystem;
 
-/// <summary>
-/// A singleton class to manage all game inputs from a single InputActionAsset.
-/// This allows any other script to access input actions without needing its
-/// own PlayerInput component or action references.
-/// </summary>
 public class InputManager : MonoBehaviour
 {
     // --- SINGLETON PATTERN ---
-    
-    /// <summary>
-    /// The static, globally accessible instance of the InputManager.
-    /// </summary>
     public static InputManager Instance { get; private set; }
 
     // --- INPUT ACTIONS ---
-
-    /// <summary>
-    /// Assign your main ".inputactions" asset to this field in the Inspector.
-    /// </summary>
+    
     [Header("Input Asset")]
     [Tooltip("Drag your main .inputactions asset here.")]
     [SerializeField]
@@ -28,17 +16,12 @@ public class InputManager : MonoBehaviour
     // --- PUBLIC ACTION PROPERTIES ---
     // These are the public properties other scripts will use to
     // read inputs. We find and assign these in Awake().
-
-    // Example: Expose the "Player" action map
     public InputActionMap PlayerActions { get; private set; }
     
-    // Example: Expose the "Move" action from the "Player" map
     public InputAction MoveAction { get; private set; }
     
-    // Example: Expose the "Jump" action from the "Player" map
     public InputAction JumpAction { get; private set; }
     
-    // Example: Expose the "Look" action from the "Player" map
     public InputAction LookAction { get; private set; }
     
     public InputAction AttackAction { get; private set; }
@@ -48,21 +31,15 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        // --- SINGLETON SETUP ---
-        
-        // Check if an instance already exists
         if (Instance != null && Instance != this)
         {
-            // If one does, destroy this new one.
             Debug.LogWarning("Duplicate InputManager found. Destroying new instance.");
             Destroy(gameObject);
             return;
         }
-
-        // This is the one and only instance.
+        
         Instance = this;
         
-        // (Optional) Keep this manager alive across scene loads
         DontDestroyOnLoad(gameObject);
         
         // --- INPUT SYSTEM SETUP ---
