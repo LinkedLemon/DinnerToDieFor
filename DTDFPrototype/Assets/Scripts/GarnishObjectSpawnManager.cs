@@ -75,7 +75,7 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
             DropObject();
         }
     }
-    
+
     // --- CORE LOGIC ---
 
     public void SpawnObject()
