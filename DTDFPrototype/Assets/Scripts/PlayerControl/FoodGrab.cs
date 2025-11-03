@@ -3,17 +3,18 @@ using UnityEngine;
 public class FoodGrab : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    ObjectSpawner_InputSystem _spawner;
     void Start()
     {
+        _spawner = FindFirstObjectByType<ObjectSpawner_InputSystem>();
         FindFirstObjectByType<MouseClickRaycast>().OnRaycastHit.AddListener(ClickedObject);
     }
 
     private void ClickedObject(RaycastHit hit)
     {
-        ObjectSpawner_InputSystem spawner = hit.collider.gameObject.GetComponent<ObjectSpawner_InputSystem>();
-        if (spawner != null)
+        if (hit.collider.gameObject.CompareTag("Garnish"))
         {
-            spawner.SpawnObject();
+            _spawner.SpawnObject();
         }
     }
 }
