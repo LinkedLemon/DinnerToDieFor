@@ -7,5 +7,11 @@ public class BaseAdditive : ScriptableObject
 
     public float _pointValue;
 
+    public float _failedPointValue;
+
+    public float _heatValue;
+
+    public float _failedHeatValue;
+
 
 }
