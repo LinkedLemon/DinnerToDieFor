@@ -5,6 +5,8 @@ public class CoreGameplayManager : MonoBehaviour
     [Header("System References")]
     [SerializeField]
     internal TrayPositionManager trayAnimationManager;
+    [SerializeField]
+    internal HitTagEventRelay bellEventRelay;
     
     private GameState currentState;
 
@@ -17,12 +19,16 @@ public class CoreGameplayManager : MonoBehaviour
         AwaitingOrderState = new AwaitingOrderState(this);
         ModifyOrderState = new ModifyOrderState(this);
         ViewingResultState = new ViewingResultState(this);
+        
+        bellEventRelay.OnTagMatched.AddListener(SubmitOrder);
     }
 
     private void Start()
     {
-        // Initial state
         TransitionToState(AwaitingOrderState);
+        
+        trayAnimationManager.OnReachedPointB.AddListener(() => TransitionToState(ModifyOrderState));
+        trayAnimationManager.OnReachedPointC.AddListener(() => TransitionToState(ViewingResultState));
     }
 
     private void Update()
@@ -30,6 +36,14 @@ public class CoreGameplayManager : MonoBehaviour
         if (currentState != null)
         {
             currentState.Update();
+        }
+    }
+    
+    public void SubmitOrder(RaycastHit hit)
+    {
+        if (currentState == ModifyOrderState)
+        {
+            trayAnimationManager.SubmittedOrder();
         }
     }
 

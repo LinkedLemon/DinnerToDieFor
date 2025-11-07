@@ -15,12 +15,7 @@ public class AwaitingOrderState : GameState
 
     public override void Update()
     {
-        // This is a placeholder for the tray arrival event.
-        // In a real implementation, an event from a tray manager would trigger the transition.
-        if (Keyboard.current.spaceKey.isPressed) 
-        {
-            manager.TransitionToState(manager.ModifyOrderState);
-        }
+
     }
 
     public override void Exit()

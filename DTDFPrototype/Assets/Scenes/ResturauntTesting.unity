@@ -301,8 +301,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 181055577}
-        m_TargetAssemblyTypeName: ObjectSpawner_InputSystem, Assembly-CSharp
-        m_MethodName: SpawnObject
+        m_TargetAssemblyTypeName: GarnishObjectSpawnManager, Assembly-CSharp
+        m_MethodName: SpawnCurrentGarnish
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -403,7 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbc9e860438f5a4b8e8bc35b798db46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
-  objectToSpawnPrefab: {fileID: 8001376058703466382, guid: ab121db9cd4a2f446a616f2b5d56bc87, type: 3}
+  garnishPrefabs:
+  - {fileID: 8001376058703466382, guid: ab121db9cd4a2f446a616f2b5d56bc87, type: 3}
   spawnYPosition: 1.25
 --- !u!4 &181055578
 Transform:
@@ -592,6 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreGameplayManager
   trayAnimationManager: {fileID: 437094559}
+  bellEventRelay: {fileID: 1181020032}
 --- !u!4 &231909862
 Transform:
   m_ObjectHideFlags: 0
@@ -752,6 +754,12 @@ MonoBehaviour:
   pointB: {fileID: 212735104}
   pointC: {fileID: 1733118459}
   moveSpeed: 5
+  OnReachedPointB:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReachedPointC:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &437094560
 Transform:
   m_ObjectHideFlags: 0
@@ -796,7 +804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1344f465521434ab3794f0b57e1c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
-  inputActionAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!4 &617092140
 Transform:
   m_ObjectHideFlags: 0
@@ -1750,6 +1757,7 @@ GameObject:
   - component: {fileID: 1732989494}
   - component: {fileID: 1732989493}
   - component: {fileID: 1732989492}
+  - component: {fileID: 1732989496}
   m_Layer: 0
   m_Name: OrderTray
   m_TagString: Tray
@@ -1764,7 +1772,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732989491}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 99fcc08cf21ff664288ba64787115090, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1849,6 +1857,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 883171310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1732989496
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732989491}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!1 &1733118458
 GameObject:
   m_ObjectHideFlags: 0

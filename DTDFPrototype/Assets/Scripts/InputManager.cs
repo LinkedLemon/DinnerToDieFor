@@ -1,99 +1,63 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class InputManager : MonoBehaviour
 {
-    // --- SINGLETON PATTERN ---
     public static InputManager Instance { get; private set; }
 
-    // --- INPUT ACTIONS ---
-    
-    [Header("Input Asset")]
-    [Tooltip("Drag your main .inputactions asset here.")]
-    [SerializeField]
-    private InputActionAsset inputActionAsset;
+    private InputSystem_Actions inputActions;
 
-    // --- PUBLIC ACTION PROPERTIES ---
-    // These are the public properties other scripts will use to
-    // read inputs. We find and assign these in Awake().
-    public InputActionMap PlayerActions { get; private set; }
-    
-    public InputAction MoveAction { get; private set; }
-    
-    public InputAction JumpAction { get; private set; }
-    
-    public InputAction LookAction { get; private set; }
-    
-    public InputAction AttackAction { get; private set; }
+    // --- Player Action Events ---
+    public event Action<InputAction.CallbackContext> OnMove;
+    public event Action<InputAction.CallbackContext> OnLook;
+    public event Action<InputAction.CallbackContext> OnAttack;
+    public event Action<InputAction.CallbackContext> OnInteract;
+    public event Action<InputAction.CallbackContext> OnCrouch;
+    public event Action<InputAction.CallbackContext> OnJump;
+    public event Action<InputAction.CallbackContext> OnPrevious;
+    public event Action<InputAction.CallbackContext> OnNext;
+    public event Action<InputAction.CallbackContext> OnSprint;
 
-    // (Add more public InputAction properties here for any other actions
-    // you want to expose, like "Fire", "Interact", etc.)
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
+        private void Awake()
         {
-            Debug.LogWarning("Duplicate InputManager found. Destroying new instance.");
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+    
+            inputActions = new InputSystem_Actions();
+            
+            inputActions.Player.Move.performed += ctx => OnMove?.Invoke(ctx);
+            inputActions.Player.Look.performed += ctx => OnLook?.Invoke(ctx);
+            inputActions.Player.Attack.performed += ctx => OnAttack?.Invoke(ctx);
+            inputActions.Player.Interact.performed += ctx => OnInteract?.Invoke(ctx);
+            inputActions.Player.Crouch.performed += ctx => OnCrouch?.Invoke(ctx);
+            inputActions.Player.Jump.performed += ctx => OnJump?.Invoke(ctx);
+            inputActions.Player.Previous.performed += ctx => OnPrevious?.Invoke(ctx);
+            inputActions.Player.Next.performed += ctx => OnNext?.Invoke(ctx);
+            inputActions.Player.Sprint.performed += ctx => OnSprint?.Invoke(ctx);
+        }
+    
+        private void OnEnable()
+        {
+            inputActions.Player.Enable();
+        }
+    
+        private void OnDisable()
+        {
+            inputActions.Player.Disable();
         }
         
-        Instance = this;
-        
-        DontDestroyOnLoad(gameObject);
-        
-        // --- INPUT SYSTEM SETUP ---
-
-        if (inputActionAsset == null)
+        public Vector2 GetMoveVector()
         {
-            Debug.LogError("InputManager: InputActionAsset is not assigned in the Inspector!");
-            return;
+            return inputActions.Player.Move.ReadValue<Vector2>();
         }
-
-        // Find and cache the Action Maps and Actions by name.
-        // IMPORTANT: These strings ("Player", "Move", "Jump", "Look")
-        // MUST match the names you gave them in the Input Action Asset editor.
-
-        PlayerActions = inputActionAsset.FindActionMap("Player");
-        if (PlayerActions == null)
-        {
-            Debug.LogError("InputManager: Could not find 'Player' Action Map in the asset.");
-            return;
-        }
-
-        // Find specific actions within the "Player" map
-        MoveAction = PlayerActions.FindAction("Move");
-        JumpAction = PlayerActions.FindAction("Jump");
-        LookAction = PlayerActions.FindAction("Look");
-        AttackAction = PlayerActions.FindAction("Attack");
-
-        // Log warnings if any actions weren't found (helps with debugging typos)
-        if (MoveAction == null) Debug.LogWarning("InputManager: 'Move' action not found.");
-        if (JumpAction == null) Debug.LogWarning("InputManager: 'Jump' action not found.");
-        if (LookAction == null) Debug.LogWarning("InputManager: 'Look' action not found.");
-
-        // (Add more 'Find' calls here for your other actions)
-    }
-
-    /// <summary>
-    /// Enable all our relevant action maps when this object is enabled.
-    /// </summary>
-    private void OnEnable()
+    public Vector2 GetLookVector()
     {
-        // Enabling the map enables all actions within it.
-        PlayerActions?.Enable();
-        
-        // You could also enable other maps here if you have them
-        // e.g., UIActions?.Enable();
-    }
-
-    /// <summary>
-    /// Disable all our action maps when this object is disabled.
-    /// </summary>
-    private void OnDisable()
-    {
-        PlayerActions?.Disable();
-        
-        // e.g., UIActions?.Disable();
+        return inputActions.Player.Look.ReadValue<Vector2>();
     }
 }

@@ -1,16 +1,16 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem; // <-- Required for the new Input System
-public class ObjectSpawner_InputSystem : MonoBehaviour
+using UnityEngine.InputSystem;
+
+public class GarnishObjectSpawnManager : MonoBehaviour
 {
     [Header("Spawning Settings")]
-    [Tooltip("The 3D object prefab to spawn. Must have a Rigidbody.")]
-    [SerializeField] private GameObject objectToSpawnPrefab;
+    [Tooltip("The 3D object prefabs to spawn. Must have a Rigidbody.")]
+    [SerializeField] private GameObject[] garnishPrefabs;
 
     [Tooltip("The fixed Y-axis position where the object will follow the mouse.")]
     [SerializeField] private float spawnYPosition = 10f;
 
-    // Private state variables
+    private int currentGarnishIndex = 0;
     private GameObject currentFollowingObject;
     private Rigidbody currentObjectRigidbody;
     private Camera mainCamera;
@@ -19,46 +19,29 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
     void Awake()
     {
         mainCamera = Camera.main;
-        
         spawnPlane = new Plane(Vector3.up, new Vector3(0, spawnYPosition, 0));
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        if (InputManager.Instance != null && InputManager.Instance.AttackAction != null)
+        if (InputManager.Instance != null)
         {
-            BindAction();
-        }
-        else
-        {
-            StartCoroutine(BindWhenReady());
+            InputManager.Instance.OnAttack += OnDrop;
+            InputManager.Instance.OnNext += SelectNextGarnish;
+            InputManager.Instance.OnPrevious += SelectPreviousGarnish;
         }
     }
 
     private void OnDisable()
     {
-        if (InputManager.Instance != null && InputManager.Instance.AttackAction != null)
+        if (InputManager.Instance != null)
         {
-            InputManager.Instance.AttackAction.performed -= OnDrop;
-            Debug.Log("Unbinded attack from drop");
+            InputManager.Instance.OnAttack -= OnDrop;
+            InputManager.Instance.OnNext -= SelectNextGarnish;
+            InputManager.Instance.OnPrevious -= SelectPreviousGarnish;
         }
     }
 
-    private IEnumerator BindWhenReady()
-    {
-        yield return new WaitUntil(() => InputManager.Instance != null && InputManager.Instance.AttackAction != null);
-        
-        BindAction();
-    }
-
-    private void BindAction()
-    {
-        InputManager.Instance.AttackAction.performed -= OnDrop;
-        InputManager.Instance.AttackAction.performed += OnDrop;
-        
-        Debug.Log("Binded attack to drop");
-    }
-    
     void Update()
     {
         if (currentFollowingObject != null)
@@ -66,48 +49,61 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
             UpdateFollowingPosition();
         }
     }
-    
+
+    private void SelectNextGarnish(InputAction.CallbackContext context)
+    {
+        if (garnishPrefabs.Length == 0) return;
+        currentGarnishIndex = (currentGarnishIndex + 1) % garnishPrefabs.Length;
+        Debug.Log($"Selected Garnish: {garnishPrefabs[currentGarnishIndex].name}");
+    }
+
+    private void SelectPreviousGarnish(InputAction.CallbackContext context)
+    {
+        if (garnishPrefabs.Length == 0) return;
+        currentGarnishIndex--;
+        if (currentGarnishIndex < 0)
+        {
+            currentGarnishIndex = garnishPrefabs.Length - 1;
+        }
+        Debug.Log($"Selected Garnish: {garnishPrefabs[currentGarnishIndex].name}");
+    }
+
+    public void SpawnCurrentGarnish()
+    {
+        if (currentFollowingObject != null) return;
+        if (garnishPrefabs.Length == 0)
+        {
+            Debug.LogWarning("No garnish prefabs assigned.", this);
+            return;
+        }
+
+        GameObject prefabToSpawn = garnishPrefabs[currentGarnishIndex];
+        currentFollowingObject = Instantiate(prefabToSpawn);
+
+        if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
+        {
+            currentObjectRigidbody = currentFollowingObject.AddComponent<Rigidbody>();
+        }
+
+        currentObjectRigidbody.isKinematic = true;
+        currentObjectRigidbody.useGravity = false;
+
+        UpdateFollowingPosition();
+    }
+
     private void OnDrop(InputAction.CallbackContext context)
     {
-        Debug.Log("Dropping object");
-        if (context.performed && currentFollowingObject != null)
+        if (currentFollowingObject != null)
         {
             DropObject();
         }
     }
-    
-    // --- CORE LOGIC ---
 
-    public void SpawnObject()
-    {
-        if (currentFollowingObject != null) return; 
-
-        if (objectToSpawnPrefab == null)
-        {
-            Debug.LogWarning("ObjectToSpawnPrefab is not assigned in the Inspector!", this);
-            return;
-        }
-
-        currentFollowingObject = Instantiate(objectToSpawnPrefab);
-
-        if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
-        {
-            Debug.LogWarning("Prefab was missing a Rigidbody. Adding one automatically.", currentFollowingObject);
-            currentObjectRigidbody = currentFollowingObject.AddComponent<Rigidbody>();
-        }
-        
-        currentObjectRigidbody.isKinematic = true;
-        currentObjectRigidbody.useGravity = false;
-        
-        UpdateFollowingPosition();
-    }
-    
     private void UpdateFollowingPosition()
     {
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
-
         Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
-        
+
         if (spawnPlane.Raycast(ray, out float distance))
         {
             Vector3 worldPosition = ray.GetPoint(distance);
@@ -118,10 +114,10 @@ public class ObjectSpawner_InputSystem : MonoBehaviour
     private void DropObject()
     {
         if (currentObjectRigidbody == null) return;
-        
+
         currentObjectRigidbody.isKinematic = false;
         currentObjectRigidbody.useGravity = true;
-        
+
         currentFollowingObject = null;
         currentObjectRigidbody = null;
     }

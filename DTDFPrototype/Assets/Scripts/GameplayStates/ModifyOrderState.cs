@@ -14,11 +14,7 @@ public class ModifyOrderState : GameState
 
     public override void Update()
     {
-        // This is a placeholder for the bell press event.
-        if (Keyboard.current.lKey.isPressed)
-        {
-            manager.TransitionToState(manager.ViewingResultState);
-        }
+
     }
 
     public override void Exit()

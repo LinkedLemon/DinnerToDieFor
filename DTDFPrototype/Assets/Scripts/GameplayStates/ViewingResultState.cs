@@ -3,19 +3,21 @@ using UnityEngine.InputSystem;
 
 public class ViewingResultState : GameState
 {
+    private float startTime;
+    private float duration = 5f;
     public ViewingResultState(CoreGameplayManager manager) : base(manager) { }
 
     public override void Enter()
     {
         Debug.Log("Entering ViewingResultState");
+        startTime = Time.time;
         // TODO: Display the outcome of the order
         // Example: ResultScreen.Instance.ShowResult(orderData);
     }
 
     public override void Update()
     {
-        // This is a placeholder for returning to the start.
-        if (Keyboard.current.jKey.isPressed)
+        if (Time.time - startTime > duration)
         {
             manager.TransitionToState(manager.AwaitingOrderState);
         }
