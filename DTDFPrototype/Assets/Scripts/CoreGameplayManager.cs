@@ -8,7 +8,7 @@ public class CoreGameplayManager : MonoBehaviour
     [SerializeField]
     internal HitTagEventRelay bellEventRelay;
     
-    private GameState currentState;
+    public GameState CurrentState { get; private set; }
 
     public AwaitingOrderState AwaitingOrderState { get; private set; }
     public ModifyOrderState ModifyOrderState { get; private set; }
@@ -33,15 +33,15 @@ public class CoreGameplayManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentState != null)
+        if (CurrentState != null)
         {
-            currentState.Update();
+            CurrentState.Update();
         }
     }
     
     public void SubmitOrder(RaycastHit hit)
     {
-        if (currentState == ModifyOrderState)
+        if (CurrentState == ModifyOrderState)
         {
             trayAnimationManager.SubmittedOrder();
         }
@@ -49,12 +49,12 @@ public class CoreGameplayManager : MonoBehaviour
 
     public void TransitionToState(GameState nextState)
     {
-        if (currentState != null)
+        if (CurrentState != null)
         {
-            currentState.Exit();
+            CurrentState.Exit();
         }
 
-        currentState = nextState;
-        currentState.Enter();
+        CurrentState = nextState;
+        CurrentState.Enter();
     }
 }

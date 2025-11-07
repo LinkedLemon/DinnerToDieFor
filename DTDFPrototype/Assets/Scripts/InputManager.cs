@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
     public event Action<InputAction.CallbackContext> OnPrevious;
     public event Action<InputAction.CallbackContext> OnNext;
     public event Action<InputAction.CallbackContext> OnSprint;
+    public event Action<InputAction.CallbackContext> OnToggleBriefcase;
 
         private void Awake()
         {
@@ -40,6 +41,7 @@ public class InputManager : MonoBehaviour
             inputActions.Player.Previous.performed += ctx => OnPrevious?.Invoke(ctx);
             inputActions.Player.Next.performed += ctx => OnNext?.Invoke(ctx);
             inputActions.Player.Sprint.performed += ctx => OnSprint?.Invoke(ctx);
+            inputActions.Player.ToggleBriefcase.performed += ctx => OnToggleBriefcase?.Invoke(ctx);
         }
     
         private void OnEnable()
