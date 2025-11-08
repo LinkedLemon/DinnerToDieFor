@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FoodEnums : MonoBehaviour
+public class GarnishEnums : MonoBehaviour
 {
     public enum GarnishType
     {

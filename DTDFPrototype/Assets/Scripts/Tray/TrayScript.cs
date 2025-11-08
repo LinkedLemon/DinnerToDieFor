@@ -24,7 +24,7 @@ public class TrayScript : MonoBehaviour
             {
                 Debug.LogWarning("Food number " + i + "does not have script, and cannot be given garnishes"); 
             }
-            GameObject foodGM = Instantiate(_fs, _foodPlacement[i].transform);
+            GameObject foodGM = Instantiate(listOfFood[i], _foodPlacement[i].transform);
             _food.Add(foodGM);
         }
     }
