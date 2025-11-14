@@ -4,11 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Tray
-  - Bowl
-  - Plate
-  - Bell
-  - Garnish
+  - Cherry
+  - 'Olive '
+  - Paprika
+  - CocktailSword
+  - Thyme
   layers:
   - Default
   - TransparentFX
@@ -17,8 +17,8 @@ TagManager:
   - Water
   - UI
   - MaterialDebug
-  - 
-  - 
+  - Garnish
+  - Bell
   - 
   - 
   - 

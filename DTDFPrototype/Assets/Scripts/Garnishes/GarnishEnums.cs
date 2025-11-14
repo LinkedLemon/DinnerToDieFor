@@ -4,7 +4,7 @@ public class GarnishEnums : MonoBehaviour
 {
     public enum GarnishType
     {
-        none,spice,salt,garlic,lemon
+        none,cherry,olive,paprika,sword,thyme
     }
 
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events; // Import the UnityEvent system
+using UnityEngine.Events;
 
 public class MouseClickRaycast : MonoBehaviour
 {
     [Header("Events")]
-    public UnityEvent<RaycastHit> OnRaycastHit;
+    public UnityEvent<int, string> OnRaycastHit;
 
     private Camera mainCamera;
 
@@ -16,30 +16,44 @@ public class MouseClickRaycast : MonoBehaviour
         {
             Debug.LogError("MouseClickRaycast: No main camera found! Please tag your camera 'MainCamera'.");
         }
+
+        // Subscribe to the OnAttack event from the InputManager
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnAttack += PerformRaycast;
+        }
+        else
+        {
+            Debug.LogError("MouseClickRaycast: InputManager.Instance is null. Make sure an InputManager is in the scene.");
+        }
     }
 
-    void Update()
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event to prevent memory leaks
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnAttack -= PerformRaycast;
+        }
+    }
+
+    private void PerformRaycast(InputAction.CallbackContext context)
     {
         if (mainCamera == null) return;
-        
-        Mouse mouse = Mouse.current;
-        if (mouse == null || !mouse.leftButton.wasPressedThisFrame)
-        {
-            return;
-        }
 
-        Vector2 mousePosition = mouse.position.ReadValue();
+        // We only care about the "performed" phase of the action (the click itself)
+        if (!context.performed) return;
 
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
-            string objectName = hitInfo.transform.name;
-            string objectTag = hitInfo.transform.tag;
-            Debug.Log($"Raycast Hit: {objectName}, Tag: {objectTag}");
+            int objectLayer = hitInfo.collider.gameObject.layer;
+            string objectTag = hitInfo.collider.tag;
+            Debug.Log($"Raycast Hit: Layer {objectLayer}, Tag: {objectTag}");
 
-            OnRaycastHit.Invoke(hitInfo);
+            OnRaycastHit.Invoke(objectLayer, objectTag);
         }
         else
         {

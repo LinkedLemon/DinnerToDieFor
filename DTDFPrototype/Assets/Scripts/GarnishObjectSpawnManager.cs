@@ -1,25 +1,57 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+
+// This class is a serializable key-value pair for the Inspector.
+[System.Serializable]
+public class GarnishMapping
+{
+    public string garnishType;
+    public GameObject garnishPrefab;
+}
 
 public class GarnishObjectSpawnManager : MonoBehaviour
 {
+    [Header("Garnish Settings")]
+    [SerializeField]
+    [Tooltip("A list that maps a string key to a garnish prefab.")]
+    private List<GarnishMapping> garnishMappings;
+
     [Header("Spawning Settings")]
-    [Tooltip("The 3D object prefabs to spawn. Must have a Rigidbody.")]
-    [SerializeField] private GameObject[] garnishPrefabs;
+    [SerializeField]
+    [Tooltip("The fixed Y-axis position where the object will follow the mouse before being dropped.")]
+    private float spawnYPosition = 10f;
 
-    [Tooltip("The fixed Y-axis position where the object will follow the mouse.")]
-    [SerializeField] private float spawnYPosition = 10f;
+    // Runtime dictionary for fast lookups.
+    private Dictionary<string, GameObject> garnishDictionary;
 
-    private int currentGarnishIndex = 0;
+    // State for the object being moved
     private GameObject currentFollowingObject;
     private Rigidbody currentObjectRigidbody;
     private Camera mainCamera;
     private Plane spawnPlane;
 
-    void Awake()
+    private void Awake()
     {
         mainCamera = Camera.main;
         spawnPlane = new Plane(Vector3.up, new Vector3(0, spawnYPosition, 0));
+
+        garnishDictionary = new Dictionary<string, GameObject>();
+        foreach (var mapping in garnishMappings)
+        {
+            if (mapping != null && !string.IsNullOrEmpty(mapping.garnishType) && mapping.garnishPrefab != null)
+            {
+                if (!garnishDictionary.ContainsKey(mapping.garnishType))
+                {
+                    garnishDictionary.Add(mapping.garnishType, mapping.garnishPrefab);
+                }
+                else
+                {
+                    Debug.LogWarning($"Duplicate garnish type '{mapping.garnishType}' found. The first one will be used.", this);
+                }
+            }
+        }
     }
 
     private void Start()
@@ -27,22 +59,22 @@ public class GarnishObjectSpawnManager : MonoBehaviour
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnAttack += OnDrop;
-            InputManager.Instance.OnNext += SelectNextGarnish;
-            InputManager.Instance.OnPrevious += SelectPreviousGarnish;
+        }
+        else
+        {
+            Debug.LogError("GarnishObjectSpawnManager: InputManager.Instance is null.", this);
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnAttack -= OnDrop;
-            InputManager.Instance.OnNext -= SelectNextGarnish;
-            InputManager.Instance.OnPrevious -= SelectPreviousGarnish;
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (currentFollowingObject != null)
         {
@@ -50,45 +82,36 @@ public class GarnishObjectSpawnManager : MonoBehaviour
         }
     }
 
-    private void SelectNextGarnish(InputAction.CallbackContext context)
+    /// <summary>
+    /// Spawns a garnish and holds it, following the mouse, until it is dropped.
+    /// </summary>
+    public void SpawnRequestedGarnish(string garnishType)
     {
-        if (garnishPrefabs.Length == 0) return;
-        currentGarnishIndex = (currentGarnishIndex + 1) % garnishPrefabs.Length;
-        Debug.Log($"Selected Garnish: {garnishPrefabs[currentGarnishIndex].name}");
-    }
-
-    private void SelectPreviousGarnish(InputAction.CallbackContext context)
-    {
-        if (garnishPrefabs.Length == 0) return;
-        currentGarnishIndex--;
-        if (currentGarnishIndex < 0)
+        if (currentFollowingObject != null)
         {
-            currentGarnishIndex = garnishPrefabs.Length - 1;
-        }
-        Debug.Log($"Selected Garnish: {garnishPrefabs[currentGarnishIndex].name}");
-    }
-
-    public void SpawnCurrentGarnish()
-    {
-        if (currentFollowingObject != null) return;
-        if (garnishPrefabs.Length == 0)
-        {
-            Debug.LogWarning("No garnish prefabs assigned.", this);
+            Debug.LogWarning("Already holding a garnish. Drop it first before spawning a new one.", this);
             return;
         }
 
-        GameObject prefabToSpawn = garnishPrefabs[currentGarnishIndex];
-        currentFollowingObject = Instantiate(prefabToSpawn);
-
-        if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
+        if (garnishDictionary.TryGetValue(garnishType, out GameObject prefabToSpawn))
         {
-            currentObjectRigidbody = currentFollowingObject.AddComponent<Rigidbody>();
+            currentFollowingObject = Instantiate(prefabToSpawn);
+
+            if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
+            {
+                currentObjectRigidbody = currentObjectRigidbody.AddComponent<Rigidbody>();
+            }
+
+            currentObjectRigidbody.isKinematic = true;
+            currentObjectRigidbody.useGravity = false;
+
+            Debug.Log($"Spawning and holding garnish: {garnishType}");
+            UpdateFollowingPosition(); // Position it correctly right away
         }
-
-        currentObjectRigidbody.isKinematic = true;
-        currentObjectRigidbody.useGravity = false;
-
-        UpdateFollowingPosition();
+        else
+        {
+            Debug.LogError($"Failed to spawn garnish. Type '{garnishType}' not found.", this);
+        }
     }
 
     private void OnDrop(InputAction.CallbackContext context)
@@ -115,9 +138,11 @@ public class GarnishObjectSpawnManager : MonoBehaviour
     {
         if (currentObjectRigidbody == null) return;
 
+        Debug.Log("Dropping garnish.");
         currentObjectRigidbody.isKinematic = false;
         currentObjectRigidbody.useGravity = true;
 
+        // Release control
         currentFollowingObject = null;
         currentObjectRigidbody = null;
     }

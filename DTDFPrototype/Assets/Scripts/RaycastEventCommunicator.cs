@@ -16,7 +16,7 @@ public class RaycastEventCommunicator : MonoBehaviour
 
     [Header("Output (Relay)")]
     [Tooltip("The event this communicator will fire to relay the data.")]
-    public UnityEvent<RaycastHit> OnHitRelayed;
+    public UnityEvent<int, string> OnHitRelayed;
 
     private void Awake()
     {
@@ -44,13 +44,13 @@ public class RaycastEventCommunicator : MonoBehaviour
     /// <summary>
     /// This method is called by the raycastSource's event.
     /// </summary>
-    private void RelayHit(RaycastHit hit)
+    private void RelayHit(int layer, string tag)
     {
         // This object can do its own logic here first if needed
         // (e.g., log the hit, filter it, etc.).
         
         // Now, fire our *own* event to pass the data along
         // to any final listeners (like the MaterialChanger).
-        OnHitRelayed.Invoke(hit);
+        OnHitRelayed.Invoke(layer, tag);
     }
 }

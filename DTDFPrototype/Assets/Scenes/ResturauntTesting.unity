@@ -155,6 +155,7 @@ Transform:
   - {fileID: 1730783132}
   - {fileID: 181055578}
   - {fileID: 1079221696}
+  - {fileID: 606709569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113169388
@@ -169,9 +170,9 @@ GameObject:
   - component: {fileID: 113169391}
   - component: {fileID: 113169390}
   - component: {fileID: 113169389}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bell
-  m_TagString: Bell
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,14 +298,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190fa88862b0c274dbd6b8433d96b805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitTagEventRelay
-  triggerTag: Garnish
-  OnTagMatched:
+  eventSource: {fileID: 1730783131}
+  triggerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  triggerTag: 
+  OnMatch:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 181055577}
         m_TargetAssemblyTypeName: GarnishObjectSpawnManager, Assembly-CSharp
-        m_MethodName: SpawnCurrentGarnish
-        m_Mode: 1
+        m_MethodName: SpawnRequestedGarnish
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -404,9 +409,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbc9e860438f5a4b8e8bc35b798db46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
-  garnishPrefabs:
-  - {fileID: 8001376058703466382, guid: ab121db9cd4a2f446a616f2b5d56bc87, type: 3}
-  spawnYPosition: 1.25
+  garnishMappings:
+  - garnishType: Cherry
+    garnishPrefab: {fileID: 6260471278141328576, guid: 2d9f506e6fbccd646a2bbf495f7f0c46, type: 3}
+  - garnishType: CocktailSword
+    garnishPrefab: {fileID: 1293513080206982499, guid: 1ffcacb992ffe124bb0d04fb71031589, type: 3}
+  - garnishType: 'Olive '
+    garnishPrefab: {fileID: 259261710518474229, guid: 2fa1805a4d65867478cf9316fb7600cc, type: 3}
+  - garnishType: Paprika
+    garnishPrefab: {fileID: 2626425467366600526, guid: 38d5b1a9cac85504186f82e8d32917f4, type: 3}
+  - garnishType: Thyme
+    garnishPrefab: {fileID: 3657818016868752455, guid: ed204a28f103f5141b8269d6f86610e2, type: 3}
+  spawnYPosition: 1.2
 --- !u!4 &181055578
 Transform:
   m_ObjectHideFlags: 0
@@ -622,9 +636,9 @@ GameObject:
   - component: {fileID: 240351527}
   - component: {fileID: 240351526}
   - component: {fileID: 240351525}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Garnish
-  m_TagString: Garnish
+  m_TagString: Cherry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -675,7 +689,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 898319857d24c1e4da49896a5358323c, type: 2}
+  - {fileID: 2100000, guid: dec32d964b6689c4ea8535883f7902c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -776,6 +790,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1773491255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &606709568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606709569}
+  - component: {fileID: 606709570}
+  m_Layer: 0
+  m_Name: OrderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606709569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606709568}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 79609302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606709570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606709568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66628b955cc34f34bbb6683dfb32bf27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  dishSpawnPoints:
+  - {fileID: 1100001098}
+  - {fileID: 795436870}
+  - {fileID: 1184090993}
+  - {fileID: 2028007829}
+  - {fileID: 2055373500}
+  initialOrders:
+  - {fileID: 11400000, guid: da4372aed1357174a9cdb68289352620, type: 2}
 --- !u!1 &617092138
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,9 +898,9 @@ GameObject:
   - component: {fileID: 642358190}
   - component: {fileID: 642358189}
   - component: {fileID: 642358188}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Garnish
-  m_TagString: Garnish
+  m_TagString: CocktailSword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -885,7 +951,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 898319857d24c1e4da49896a5358323c, type: 2}
+  - {fileID: 2100000, guid: ea3d620b1d5a94745b5f85cec8160426, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -925,11 +991,42 @@ Transform:
   m_GameObject: {fileID: 642358187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.9122999}
+  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.649}
   m_LocalScale: {x: 0.2, y: 0.1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 883171310}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &795436869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795436870}
+  m_Layer: 0
+  m_Name: SpawnPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &795436870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795436869}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.208, y: 0.47, z: 0.251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732989495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &854161969
 GameObject:
@@ -1149,6 +1246,7 @@ Transform:
   - {fileID: 1421396702}
   - {fileID: 1102516629}
   - {fileID: 642358191}
+  - {fileID: 1198729921}
   - {fileID: 978399792}
   - {fileID: 240351528}
   - {fileID: 113169392}
@@ -1166,9 +1264,9 @@ GameObject:
   - component: {fileID: 978399791}
   - component: {fileID: 978399790}
   - component: {fileID: 978399789}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Garnish
-  m_TagString: Garnish
+  m_TagString: 'Olive '
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1219,7 +1317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 898319857d24c1e4da49896a5358323c, type: 2}
+  - {fileID: 2100000, guid: 836cd8dbd89486e4d94ca6d65c008046, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1259,7 +1357,7 @@ Transform:
   m_GameObject: {fileID: 978399788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.2042999}
+  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.117}
   m_LocalScale: {x: 0.2, y: 0.1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1311,6 +1409,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BriefcaseController
   coreGameplayManager: {fileID: 231909861}
   briefcaseVisual: {fileID: 2002866059}
+--- !u!1 &1100001097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1100001098}
+  m_Layer: 0
+  m_Name: SpawnPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1100001098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100001097}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.369, y: 0.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732989495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1102516625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,9 +1452,9 @@ GameObject:
   - component: {fileID: 1102516628}
   - component: {fileID: 1102516627}
   - component: {fileID: 1102516626}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Garnish
-  m_TagString: Garnish
+  m_TagString: Paprika
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1376,7 +1505,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 898319857d24c1e4da49896a5358323c, type: 2}
+  - {fileID: 2100000, guid: 1e4e917caf8b97a4abcf366d233306e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1416,7 +1545,7 @@ Transform:
   m_GameObject: {fileID: 1102516625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.5523}
+  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.385}
   m_LocalScale: {x: 0.2, y: 0.1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1451,22 +1580,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190fa88862b0c274dbd6b8433d96b805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitTagEventRelay
-  triggerTag: Bell
-  OnTagMatched:
+  eventSource: {fileID: 1730783131}
+  triggerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  triggerTag: 
+  OnMatch:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 437094559}
-        m_TargetAssemblyTypeName: TrayPositionManager, Assembly-CSharp
-        m_MethodName: SubmittedOrder
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &1181020033
 Transform:
   m_ObjectHideFlags: 0
@@ -1482,6 +1603,148 @@ Transform:
   m_Children: []
   m_Father: {fileID: 79609302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1184090992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1184090993}
+  m_Layer: 0
+  m_Name: SpawnPoint3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1184090993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184090992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.099, y: 0.47, z: 0.251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732989495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1198729920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1198729921}
+  - component: {fileID: 1198729924}
+  - component: {fileID: 1198729923}
+  - component: {fileID: 1198729922}
+  m_Layer: 7
+  m_Name: Garnish
+  m_TagString: Thyme
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1198729921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198729920}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1787896, y: 0.612, z: -1.93}
+  m_LocalScale: {x: 0.2, y: 0.1, z: 0.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 883171310}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1198729922
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198729920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1198729923
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198729920}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5c8ff6200d47c57449145007a6cb69e1, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1198729924
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198729920}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1365462570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,9 +2016,9 @@ MonoBehaviour:
   OnHitRelayed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 153758975}
+      - m_Target: {fileID: 153758974}
         m_TargetAssemblyTypeName: HitTagEventRelay, Assembly-CSharp
-        m_MethodName: CheckHitTag
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1807,7 +2070,7 @@ GameObject:
   - component: {fileID: 1732989496}
   m_Layer: 0
   m_Name: OrderTray
-  m_TagString: Tray
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1901,7 +2164,12 @@ Transform:
   m_LocalPosition: {x: -6.44979, y: 0.531, z: -1.4113}
   m_LocalScale: {x: 1.24, y: 0.1, z: 0.74}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1100001098}
+  - {fileID: 795436870}
+  - {fileID: 1184090993}
+  - {fileID: 2028007829}
+  - {fileID: 2055373500}
   m_Father: {fileID: 883171310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1732989496
@@ -2051,6 +2319,68 @@ Transform:
   m_Children:
   - {fileID: 2823688033686063431}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2028007828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028007829}
+  m_Layer: 0
+  m_Name: SpawnPoint4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2028007829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028007828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.351, y: 0.47, z: -0.019}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732989495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2055373499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2055373500}
+  m_Layer: 0
+  m_Name: SpawnPoint5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2055373500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055373499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.027, y: 0.47, z: -0.342}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732989495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2062317343955023111
 MeshFilter:

@@ -20,7 +20,7 @@ public class CoreGameplayManager : MonoBehaviour
         ModifyOrderState = new ModifyOrderState(this);
         ViewingResultState = new ViewingResultState(this);
         
-        bellEventRelay.OnTagMatched.AddListener(SubmitOrder);
+        bellEventRelay.OnMatch.AddListener(SubmitOrder);
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class CoreGameplayManager : MonoBehaviour
         }
     }
     
-    public void SubmitOrder(RaycastHit hit)
+    public void SubmitOrder(string tag)
     {
         if (CurrentState == ModifyOrderState)
         {

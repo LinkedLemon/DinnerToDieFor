@@ -9,6 +9,8 @@ public class AwaitingOrderState : GameState
     public override void Enter()
     {
         Debug.Log("Entering AwaitingOrderState");
+        
+        OrderManager.Instance.ProcessNextOrder();
 
         manager.trayAnimationManager.SendOrder();
     }
