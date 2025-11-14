@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95db801cb9023ca4fad31d04d5369da3, type: 3}
   m_Name: AngelFoodCake
   m_EditorClassIdentifier: Assembly-CSharp::FoodObject
-  dishPrefab: {fileID: 0}
+  dishPrefab: {fileID: 8212753809694238451, guid: 37f92e42cee393544be472757363dafe, type: 3}
   _preferedGarnishes: 0100000004000000
   _dislikedGarnishes: 020000000300000005000000

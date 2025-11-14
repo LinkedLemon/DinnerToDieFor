@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95db801cb9023ca4fad31d04d5369da3, type: 3}
   m_Name: ChickenSalad
   m_EditorClassIdentifier: Assembly-CSharp::FoodObject
-  dishPrefab: {fileID: 0}
+  dishPrefab: {fileID: 4791491069066298062, guid: cfb22c82bd23427448e12f66e1bd5474, type: 3}
   _preferedGarnishes: 0300000005000000
   _dislikedGarnishes: 010000000400000002000000
