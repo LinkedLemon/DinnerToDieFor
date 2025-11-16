@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using TMPro; // For TextMeshProUGUI
+using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
 
-    [SerializeField] private GameObject _loadingScreenPanel; // Assign in Inspector
-    [SerializeField] private TextMeshProUGUI _loadingText; // Assign in Inspector, if using TextMeshPro
-  //  [SerializeField] private Slider _progressBar; // Assign in Inspector, if using a progress bar
+    [SerializeField] private GameObject _loadingScreenPanel;
+    [SerializeField] private TextMeshProUGUI _loadingText;
+
+    [SerializeField] private float extraWaitTime = 6f;
+    [SerializeField] private float minimumLoadTime = 3f;
+    private float fakeTimer = 0f;
+    private float fakeProgress = 0f;
+
+
+
 
     private void Awake()
     {
@@ -40,36 +47,41 @@ public class SceneLoader : MonoBehaviour
         {
             _loadingScreenPanel.SetActive(true);
             if (_loadingText != null) _loadingText.text = "Loading...";
-         //   if (_progressBar != null) _progressBar.value = 0;
         }
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-        operation.allowSceneActivation = false; // Prevent scene from activating immediately
+        operation.allowSceneActivation = false;
+
+        fakeTimer = 0f;
+        fakeProgress = 0f;
 
         while (!operation.isDone)
         {
-            // Update progress bar/text
-            float progress = Mathf.Clamp01(operation.progress / 0.9f); // operation.progress goes from 0 to 0.9
-          //  if (_progressBar != null) _progressBar.value = progress;
-            if (_loadingText != null) _loadingText.text = $"Loading: {progress * 100:F0}%";
+            fakeTimer += Time.deltaTime;
+            float realProgress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            // When scene is almost loaded, allow activation
-            if (operation.progress >= 0.9f)
+            float targetFake = Mathf.Clamp01(fakeTimer / minimumLoadTime);
+
+            fakeProgress = Mathf.Lerp(fakeProgress, Mathf.Max(realProgress, targetFake), 0.1f);
+
+            if (_loadingText != null)
+                _loadingText.text = $"Loading: {fakeProgress * 100:F0}%";
+
+            if (realProgress >= 0.9f && fakeProgress >= 0.99f)
             {
-                // Optional: Wait for a short delay or user input before activating
-                // For now, just activate
+                yield return new WaitForSeconds(extraWaitTime);
                 operation.allowSceneActivation = true;
             }
 
             yield return null;
         }
 
-        // Scene is loaded and activated
         if (_loadingScreenPanel != null)
         {
             _loadingScreenPanel.SetActive(false);
         }
-        // Potentially re-enable player input or UI input based on the loaded scene
-        InputManager.Instance.EnablePlayerInput(); // Assuming most scenes will need player input
+
+        InputManager.Instance.EnablePlayerInput();
     }
+
 }
