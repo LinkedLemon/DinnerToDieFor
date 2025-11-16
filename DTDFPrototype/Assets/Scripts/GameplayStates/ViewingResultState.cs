@@ -11,8 +11,20 @@ public class ViewingResultState : GameState
     {
         Debug.Log("Entering ViewingResultState");
         startTime = Time.time;
-        // TODO: Display the outcome of the order
-        // Example: ResultScreen.Instance.ShowResult(orderData);
+
+        ScoreResult result = ScoreManager.Instance.CalculateOrderScore();
+        Debug.Log($"Score: {result.TotalScore} / {result.TargetScore}. Win: {result.Win}");
+
+        if (result.Win)
+        {
+            OrderManager.Instance.ProcessNextOrder();
+        }
+        else
+        {
+            // For now, we'll just log a message and proceed to the next order anyway.
+            Debug.Log("Order failed. Resetting for next order.");
+            OrderManager.Instance.ProcessNextOrder();
+        }
     }
 
     public override void Update()
