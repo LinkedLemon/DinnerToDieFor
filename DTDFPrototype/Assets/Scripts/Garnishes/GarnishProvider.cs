@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,4 +12,15 @@ public class GarnishProvider : MonoBehaviour
     [SerializeField] private GarnishGameObject garnishData;
 
     public GarnishGameObject GarnishData => garnishData;
+
+    private void Start()
+    {
+        Despawn();
+    }
+
+    private IEnumerable<WaitForSeconds> Despawn()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Destroy(gameObject);
+    }
 }
