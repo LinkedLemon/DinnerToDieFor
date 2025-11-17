@@ -30,6 +30,7 @@ public class TrayPositionManager : MonoBehaviour
     private Coroutine _activeMovement;
     
     [SerializeField] private AudioClip moveSound;
+    [SerializeField] private AudioClip bellSound;
     
     private void Start()
     {
@@ -55,6 +56,7 @@ public class TrayPositionManager : MonoBehaviour
             StopCoroutine(_activeMovement);
         }
         _activeMovement = StartCoroutine(MoveObject(pointB.position, pointC.position, true, OnReachedPointC));
+        SoundManager.instance.PlayAudioClip(bellSound, 1);
     }
     
     private IEnumerator MoveObject(Vector3 startPos, Vector3 endPos, bool hideOnComplete = false, UnityEvent onComplete = null)
