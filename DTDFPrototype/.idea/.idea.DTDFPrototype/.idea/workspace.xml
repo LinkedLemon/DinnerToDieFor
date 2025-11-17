@@ -34,6 +34,17 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/OneDrive/Desktop/DTDFBuild\DTDFPrototype.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\keega\OneDrive\Desktop\DTDFBuild" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="PTY_MODE" value="Auto" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.2.7f2\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath D:\UnityProjects\DinnerToDieFor\DinnerToDieFor\DTDFPrototype -debugCodeOptimization" />
@@ -97,6 +108,8 @@
       <workItem from="1763266918834" duration="1500000" />
       <workItem from="1763269427901" duration="183000" />
       <workItem from="1763346363908" duration="5376000" />
+      <workItem from="1763360354321" duration="13000" />
+      <workItem from="1763360425582" duration="677000" />
     </task>
     <servers />
   </component>
