@@ -5,6 +5,7 @@ public class BriefcaseController : MonoBehaviour
     [Header("System References")]
     [SerializeField] private CoreGameplayManager coreGameplayManager;
     [SerializeField] private GameObject briefcaseVisual;
+    [SerializeField] private BriefcaseUIManager uiManager;
     
     private Animator _animator;
     private static readonly int IsOpen = Animator.StringToHash("IsOpen");
@@ -48,6 +49,10 @@ public class BriefcaseController : MonoBehaviour
         {
             IsCaseOpen = !IsCaseOpen;
             _animator.SetBool(IsOpen, IsCaseOpen);
+            if (!IsCaseOpen)
+            {
+                uiManager.HideUI();
+            }
         }
         else
         {

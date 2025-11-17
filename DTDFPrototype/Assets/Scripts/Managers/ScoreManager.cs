@@ -47,7 +47,7 @@ public class ScoreManager : MonoBehaviour
             totalScore += dishScore;
         }
 
-        float targetScore = baseOrderValue + roundCounter;
+        float targetScore = baseOrderValue + ((roundCounter + 10) * 2);
         bool win = totalScore >= targetScore;
 
         if (win)

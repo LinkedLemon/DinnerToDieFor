@@ -9,6 +9,8 @@ TagManager:
   - Paprika
   - CocktailSword
   - Thyme
+  - Tray
+  - Tutorial
   layers:
   - Default
   - TransparentFX
