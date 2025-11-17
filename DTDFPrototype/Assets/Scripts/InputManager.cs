@@ -20,6 +20,11 @@ public class InputManager : MonoBehaviour
     public event Action<InputAction.CallbackContext> OnSprint;
     public event Action<InputAction.CallbackContext> OnToggleBriefcase;
 
+    // --- UI Action Events ---
+    public event Action<InputAction.CallbackContext> OnUINavigate;
+    public event Action<InputAction.CallbackContext> OnUISubmit;
+    public event Action<InputAction.CallbackContext> OnUICancel;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -42,16 +47,24 @@ public class InputManager : MonoBehaviour
             inputActions.Player.Next.performed += ctx => OnNext?.Invoke(ctx);
             inputActions.Player.Sprint.performed += ctx => OnSprint?.Invoke(ctx);
             inputActions.Player.ToggleBriefcase.performed += ctx => OnToggleBriefcase?.Invoke(ctx);
+
+            // UI Action Bindings
+            inputActions.UI.Navigate.performed += ctx => OnUINavigate?.Invoke(ctx);
+            inputActions.UI.Submit.performed += ctx => OnUISubmit?.Invoke(ctx);
+            inputActions.UI.Cancel.performed += ctx => OnUICancel?.Invoke(ctx);
         }
     
         private void OnEnable()
         {
             inputActions.Player.Enable();
+            // UI map is disabled by default, enable when UI is active
+            // inputActions.UI.Enable(); 
         }
     
         private void OnDisable()
         {
             inputActions.Player.Disable();
+            inputActions.UI.Disable();
         }
         
         public Vector2 GetMoveVector()
@@ -61,5 +74,23 @@ public class InputManager : MonoBehaviour
     public Vector2 GetLookVector()
     {
         return inputActions.Player.Look.ReadValue<Vector2>();
+    }
+
+    public void EnablePlayerInput()
+    {
+        inputActions.Player.Enable();
+        inputActions.UI.Disable();
+    }
+
+    public void EnableUIInput()
+    {
+        inputActions.UI.Enable();
+        inputActions.Player.Disable();
+    }
+
+    public void DisableAllInput()
+    {
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
     }
 }
