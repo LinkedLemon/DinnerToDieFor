@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Olive
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
   _name: Olive
-  _pointValue: 10
-  _failedPointValue: 10
+  _pointValue: 25
+  _failedPointValue: 20
   _heatValue: 0
   _failedHeatValue: 0
   _garnishType: 2

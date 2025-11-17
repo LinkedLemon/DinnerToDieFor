@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
   _name: Sword
-  _pointValue: 10
-  _failedPointValue: 10
+  _pointValue: 5
+  _failedPointValue: 15
   _heatValue: 0
   _failedHeatValue: 0
   _garnishType: 4

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cherry
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
   _name: Cherry
-  _pointValue: 10
+  _pointValue: 20
   _failedPointValue: 10
   _heatValue: 0
   _failedHeatValue: 0

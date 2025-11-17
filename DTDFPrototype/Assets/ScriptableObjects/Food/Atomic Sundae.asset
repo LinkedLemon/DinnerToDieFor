@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95db801cb9023ca4fad31d04d5369da3, type: 3}
+  m_Name: Atomic Sundae
+  m_EditorClassIdentifier: Assembly-CSharp::FoodObject
+  dishPrefab: {fileID: 7185436262769992004, guid: d2a8e4a56b78bbe4c9de13124b768971, type: 3}
+  _preferedGarnishes: 010000000400000003000000
+  _dislikedGarnishes: 0200000005000000

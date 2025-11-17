@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thyme
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
   _name: Thyme
-  _pointValue: 10
+  _pointValue: 15
   _failedPointValue: 10
   _heatValue: 0
   _failedHeatValue: 0

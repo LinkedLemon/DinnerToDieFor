@@ -20,6 +20,10 @@ public class CoreGameplayManager : MonoBehaviour
     [SerializeField] private float scoreCountDuration = 1.0f;
     [SerializeField] private float bounceDuration = 0.5f;
     [SerializeField] private float postAnimationDelay = 2.0f;
+    
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
 
     public GameState CurrentState { get; private set; }
 
@@ -31,7 +35,7 @@ public class CoreGameplayManager : MonoBehaviour
     {
         AwaitingOrderState = new AwaitingOrderState(this);
         ModifyOrderState = new ModifyOrderState(this);
-        ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay);
+        ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay, winSound, loseSound);
         
         bellEventRelay.OnMatch.AddListener(SubmitOrder);
     }

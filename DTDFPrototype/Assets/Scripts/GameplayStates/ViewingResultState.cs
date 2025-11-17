@@ -18,7 +18,10 @@ public class ViewingResultState : GameState
     private readonly Vector2 _scoreScreenOnscreenPos = Vector2.zero;
     private readonly Vector2 _scoreScreenOffscreenPos = new Vector2(0, -1000);
 
-    public ViewingResultState(CoreGameplayManager manager, GameObject scoreScreen, GameObject winScreen, GameObject loseScreen, TextMeshProUGUI scoreText, float slideDuration, float scoreCountDuration, float bounceDuration, float postAnimationDelay) : base(manager)
+    private readonly AudioClip _winSound;
+    private readonly AudioClip _loseSound;
+
+    public ViewingResultState(CoreGameplayManager manager, GameObject scoreScreen, GameObject winScreen, GameObject loseScreen, TextMeshProUGUI scoreText, float slideDuration, float scoreCountDuration, float bounceDuration, float postAnimationDelay, AudioClip winSound, AudioClip loseSound) : base(manager)
     {
         _scoreScreen = scoreScreen;
         _winScreen = winScreen;
@@ -28,6 +31,9 @@ public class ViewingResultState : GameState
         _scoreCountDuration = scoreCountDuration;
         _bounceDuration = bounceDuration;
         _postAnimationDelay = postAnimationDelay;
+        
+        _winSound = winSound;
+        _loseSound = loseSound;
 
         if (_scoreScreen != null)
         {
@@ -97,11 +103,13 @@ public class ViewingResultState : GameState
         if (result.Win)
         {
             OrderManager.Instance.ProcessNextOrder();
+            SoundManager.instance.PlayAudioClip(_winSound, 1);
         }
         else
         {
             Debug.Log("Order failed. Resetting for next order.");
             OrderManager.Instance.ProcessNextOrder();
+            SoundManager.instance.PlayAudioClip(_loseSound, 1);
         }
 
         yield return new WaitForSeconds(_postAnimationDelay);
