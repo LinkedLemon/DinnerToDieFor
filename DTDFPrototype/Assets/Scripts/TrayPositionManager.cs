@@ -29,6 +29,8 @@ public class TrayPositionManager : MonoBehaviour
 
     private Coroutine _activeMovement;
     
+    [SerializeField] private AudioClip moveSound;
+    
     private void Start()
     {
         SendOrder();
@@ -43,6 +45,7 @@ public class TrayPositionManager : MonoBehaviour
             StopCoroutine(_activeMovement);
         }
         _activeMovement = StartCoroutine(MoveObject(pointA.position, pointB.position, false, OnReachedPointB));
+        SoundManager.instance.PlayAudioClip(moveSound, 1);
     }
     
     public void SubmittedOrder()

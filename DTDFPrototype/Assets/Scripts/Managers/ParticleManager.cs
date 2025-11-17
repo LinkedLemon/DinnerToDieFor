@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum Particle
 {
-    Success,
-    Fail
+    Fire,
+    Sparkle,
+    Steam
 }
 
 public class ParticleManager : MonoBehaviour
@@ -54,7 +55,7 @@ public class ParticleManager : MonoBehaviour
             return;
         }
         PSystem.Play();
-        DespawnParticle(particleGM,despawnTimer);
+        StartCoroutine(DespawnParticle(particleGM,despawnTimer));
     }
 
     //For spawning the paricles that emits a specific amount of particles
@@ -74,7 +75,7 @@ public class ParticleManager : MonoBehaviour
             return;
         }
         PSystem.Emit(particleCount);
-        DespawnParticle(particleGM, despawnTimer);
+        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
     }
 
     IEnumerator DespawnParticle(GameObject particleGM, float despawnTimer)

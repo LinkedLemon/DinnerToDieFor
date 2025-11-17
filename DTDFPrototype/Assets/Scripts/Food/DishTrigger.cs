@@ -30,11 +30,14 @@ public class DishTrigger : MonoBehaviour
 
             // Attempt to add the garnish to the dish
             bool addedSuccessfully = _activeDish.TryAddGarnish(garnishSO);
+            Debug.Log($"Garnish addition status: {(addedSuccessfully ? "Success" : "Failed")}");
 
             // If the garnish was not added (e.g., list full, duplicate), destroy it.
             if (!addedSuccessfully)
             {
-                Debug.Log($"Destroying redundant garnish: {garnishProvider.name}");
+                Debug.Log($"Destroying redundant garnish: {garnishProvider.name}. Spawning Fire.");
+
+                ParticleManager.instance.SpawnParticleWithEmit(Particle.Fire, gameObject.transform.position, 1.0f, 1);
                 
                 Destroy(other.gameObject);
             }
@@ -42,6 +45,8 @@ public class DishTrigger : MonoBehaviour
             {
                 // Optional: Do something with the garnish object after it's successfully added.
                 // For now, we'll just destroy it.
+                Debug.Log("Spawning Sparkle.");
+                ParticleManager.instance.SpawnParticleWithEmit(Particle.Sparkle, gameObject.transform.position, 1.0f, 1);
                 Destroy(other.gameObject);
             }
         }
