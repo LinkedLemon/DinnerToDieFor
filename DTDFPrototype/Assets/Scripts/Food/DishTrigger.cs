@@ -35,6 +35,7 @@ public class DishTrigger : MonoBehaviour
             if (!addedSuccessfully)
             {
                 Debug.Log($"Destroying redundant garnish: {garnishProvider.name}");
+                
                 Destroy(other.gameObject);
             }
             else
