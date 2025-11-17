@@ -8,6 +8,7 @@ public class MouseClickRaycast : MonoBehaviour
     public UnityEvent<int, string> OnRaycastHit;
 
     private Camera mainCamera;
+    private Hoverable _currentHoverable;
 
     void Start()
     {
@@ -34,6 +35,49 @@ public class MouseClickRaycast : MonoBehaviour
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnAttack -= PerformRaycast;
+        }
+    }
+
+    void Update()
+    {
+        HandleHover();
+    }
+
+    private void HandleHover()
+    {
+        if (mainCamera == null) return;
+
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            Hoverable hoverable = hitInfo.collider.GetComponent<Hoverable>();
+
+            if (hoverable != null)
+            {
+                if (_currentHoverable != null && _currentHoverable != hoverable)
+                {
+                    _currentHoverable.OnHoverExit();
+                }
+                _currentHoverable = hoverable;
+                _currentHoverable.OnHoverEnter();
+            }
+            else
+            {
+                if (_currentHoverable != null)
+                {
+                    _currentHoverable.OnHoverExit();
+                    _currentHoverable = null;
+                }
+            }
+        }
+        else
+        {
+            if (_currentHoverable != null)
+            {
+                _currentHoverable.OnHoverExit();
+                _currentHoverable = null;
+            }
         }
     }
 
