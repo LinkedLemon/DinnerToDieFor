@@ -1,14 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ModifyOrderState : GameState, ISubmittableState
 {
     private readonly float _roundDuration;
+    private readonly Image _timerBar;
+    private readonly Image _colorBar;
+    private readonly Gradient _timerGradient;
+    
     private float _startTime;
     private bool _timerRunning;
 
-    public ModifyOrderState(CoreGameplayManager manager, float roundDuration) : base(manager)
+    public ModifyOrderState(CoreGameplayManager manager, float roundDuration, Image timerBar, Image colorBar, Gradient timerGradient) : base(manager)
     {
         _roundDuration = roundDuration;
+        _timerBar = timerBar;
+        _colorBar =  colorBar;
+        _timerGradient = timerGradient;
     }
 
     public override void Enter()
@@ -25,7 +33,19 @@ public class ModifyOrderState : GameState, ISubmittableState
         if (_timerRunning)
         {
             float elapsedTime = Time.time - _startTime;
-            // TODO: Update UI with remaining time: (_roundDuration - elapsedTime)
+            float remainingTime = _roundDuration - elapsedTime;
+            
+            // Update UI
+            if (_timerBar != null)
+            {
+                float normalizedTime = Mathf.Clamp01(remainingTime / _roundDuration);
+                _timerBar.fillAmount = normalizedTime;
+
+                if (_timerGradient != null)
+                {
+                    _colorBar.color = _timerGradient.Evaluate(1 - normalizedTime); // Evaluate from 0 (green) to 1 (red)
+                }
+            }
             
             if (elapsedTime >= _roundDuration)
             {

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoreGameplayManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class CoreGameplayManager : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private Image timerBar;
+    [SerializeField] private Image colorBar;
+    [SerializeField] private Gradient timerGradient;
 
     [Header("Animation Settings")] 
     [SerializeField] private float slideDuration = 0.5f;
@@ -39,7 +43,7 @@ public class CoreGameplayManager : MonoBehaviour
     private void Awake()
     {
         AwaitingOrderState = new AwaitingOrderState(this);
-        ModifyOrderState = new ModifyOrderState(this, roundDuration);
+        ModifyOrderState = new ModifyOrderState(this, roundDuration, timerBar, colorBar, timerGradient);
         ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay, winSound, loseSound);
         
         bellEventRelay.OnMatch.AddListener(SubmitOrder);
