@@ -18,6 +18,7 @@ public class CoreGameplayManager : MonoBehaviour
     [SerializeField] private Image timerBar;
     [SerializeField] private Image colorBar;
     [SerializeField] private Gradient timerGradient;
+    [SerializeField] private TextMeshProUGUI targetScoreText;
 
     [Header("Animation Settings")] 
     [SerializeField] private float slideDuration = 0.5f;
@@ -43,10 +44,21 @@ public class CoreGameplayManager : MonoBehaviour
     private void Awake()
     {
         AwaitingOrderState = new AwaitingOrderState(this);
-        ModifyOrderState = new ModifyOrderState(this, roundDuration, timerBar, colorBar, timerGradient);
+        ModifyOrderState = new ModifyOrderState(this, roundDuration, timerBar, colorBar, timerGradient, timerBar.gameObject, targetScoreText);
         ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay, winSound, loseSound);
         
         bellEventRelay.OnMatch.AddListener(SubmitOrder);
+
+        // Ensure the UI elements are initially inactive
+        if (timerBar != null)
+        {
+            // We assume the timerBar's GameObject is the parent of the whole timer UI
+            timerBar.gameObject.SetActive(false);
+        }
+        if (targetScoreText != null)
+        {
+            targetScoreText.gameObject.SetActive(false);
+        }
     }
 
     private void Start()

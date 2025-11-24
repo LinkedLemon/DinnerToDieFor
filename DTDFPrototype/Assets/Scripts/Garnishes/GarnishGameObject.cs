@@ -4,4 +4,5 @@ using UnityEngine;
 public class GarnishGameObject : BaseAdditive
 {
     public GarnishEnums.GarnishType _garnishType;
+    public GameObject GarnishPrefab;
 }

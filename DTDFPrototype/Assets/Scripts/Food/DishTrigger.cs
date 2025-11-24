@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,9 @@ using UnityEngine;
 public class DishTrigger : MonoBehaviour
 {
     private ActiveDish _activeDish;
+    
+    [Tooltip("The points where garnishes will be visually attached. Should be 3.")]
+    public  List<Transform> GarnishAttachmentPoints;
 
     public AudioClip successSound;
     public AudioClip badSound;
@@ -45,6 +49,22 @@ public class DishTrigger : MonoBehaviour
                     {
                         AudioSource.PlayClipAtPoint(successSound, gameObject.transform.position);
                     }
+                    
+                    // Visually attach the garnish
+                    if (garnishSO.GarnishPrefab != null)
+                    {
+                        int garnishIndex = _activeDish.AppliedGarnishes.Count - 1;
+                        if (garnishIndex < GarnishAttachmentPoints.Count)
+                        {
+                            Transform attachmentPoint = GarnishAttachmentPoints[garnishIndex];
+                            Instantiate(garnishSO.GarnishPrefab, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Added more garnishes than there are attachment points!");
+                        }
+                    }
+                    
                     break;
                 case GarnishAddResult.Failure_BadGarnish:
                     Debug.Log("Wrong garnish added. Spawning Fire.");
@@ -54,6 +74,22 @@ public class DishTrigger : MonoBehaviour
                     {
                         AudioSource.PlayClipAtPoint(badSound, gameObject.transform.position);
                     }
+                    
+                    // Visually attach the bad garnish
+                    if (garnishSO.GarnishPrefab != null)
+                    {
+                        int garnishIndex = _activeDish.AddedGarnishCount - 1;
+                        if (garnishIndex < GarnishAttachmentPoints.Count)
+                        {
+                            Transform attachmentPoint = GarnishAttachmentPoints[garnishIndex];
+                            Instantiate(garnishSO.GarnishPrefab, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Added more garnishes than there are attachment points!");
+                        }
+                    }
+                    
                     break;
                 case GarnishAddResult.Failure_DuplicateOrFull:
                     Debug.Log("Duplicate or too many garnishes. Spawning Fire.");

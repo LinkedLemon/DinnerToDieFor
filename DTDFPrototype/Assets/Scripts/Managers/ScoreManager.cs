@@ -28,6 +28,21 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public float GetCurrentTargetScore()
+    {
+        List<ActiveDish> activeDishes = OrderManager.Instance.ActiveDishes;
+        float baseOrderValue = 0.0f;
+
+        foreach (var activeDish in activeDishes)
+        {
+            baseOrderValue += 100.0f; // Assuming a base value for each dish
+        }
+
+        float baseScoreWithInstantBonus = baseOrderValue * (1 + maxBonusMultiplier);
+        float targetScore = baseScoreWithInstantBonus + (roundCounter * targetPointsPerRound);
+        return targetScore;
+    }
+
     public ScoreResult CalculateOrderScore()
     {
         List<ActiveDish> activeDishes = OrderManager.Instance.ActiveDishes;
@@ -60,7 +75,7 @@ public class ScoreManager : MonoBehaviour
         float timeMultiplier = 1.0f;
         if (RoundDurationOnSubmission > 0) // Avoid division by zero
         {
-            timeMultiplier = 1 + (TimeRemainingOnSubmission / RoundDurationOnSubmission) * maxBonusMultiplier;
+            timeMultiplier = 1.2f + (TimeRemainingOnSubmission / RoundDurationOnSubmission) * maxBonusMultiplier;
             Debug.Log($"Time Multiplier: {timeMultiplier:F2}x");
         }
         totalScore *= timeMultiplier;

@@ -18,3 +18,4 @@ MonoBehaviour:
   _heatValue: 0
   _failedHeatValue: 0
   _garnishType: 2
+  GarnishPrefab: {fileID: 5839065267113977145, guid: 1fbe9a192e9341d499c00c2630c1857b, type: 3}

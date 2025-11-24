@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,16 +8,20 @@ public class ModifyOrderState : GameState, ISubmittableState
     private readonly Image _timerBar;
     private readonly Image _colorBar;
     private readonly Gradient _timerGradient;
+    private readonly GameObject _timerBarGameObject;
+    private readonly TextMeshProUGUI _targetScoreText;
     
     private float _startTime;
     private bool _timerRunning;
 
-    public ModifyOrderState(CoreGameplayManager manager, float roundDuration, Image timerBar, Image colorBar, Gradient timerGradient) : base(manager)
+    public ModifyOrderState(CoreGameplayManager manager, float roundDuration, Image timerBar, Image colorBar, Gradient timerGradient, GameObject timerBarGameObject, TextMeshProUGUI targetScoreText) : base(manager)
     {
         _roundDuration = roundDuration;
         _timerBar = timerBar;
         _colorBar =  colorBar;
         _timerGradient = timerGradient;
+        _timerBarGameObject = timerBarGameObject;
+        _targetScoreText = targetScoreText;
     }
 
     public override void Enter()
@@ -24,6 +29,15 @@ public class ModifyOrderState : GameState, ISubmittableState
         Debug.Log("Entering ModifyOrderState");
         _startTime = Time.time;
         _timerRunning = true;
+        _timerBarGameObject?.SetActive(true);
+
+        if (_targetScoreText != null)
+        {
+            float targetScore = ScoreManager.Instance.GetCurrentTargetScore();
+            _targetScoreText.text = $"Target: {Mathf.RoundToInt(targetScore)}";
+            _targetScoreText.gameObject.SetActive(true);
+        }
+        
         // TODO: Unlock garnish and spy tool selection
         // Example: UIManager.Instance.EnableGarnishMenu();
     }
@@ -41,7 +55,7 @@ public class ModifyOrderState : GameState, ISubmittableState
                 float normalizedTime = Mathf.Clamp01(remainingTime / _roundDuration);
                 _timerBar.fillAmount = normalizedTime;
 
-                if (_timerGradient != null)
+                if (_timerGradient != null && _colorBar != null)
                 {
                     _colorBar.color = _timerGradient.Evaluate(1 - normalizedTime); // Evaluate from 0 (green) to 1 (red)
                 }
@@ -59,6 +73,11 @@ public class ModifyOrderState : GameState, ISubmittableState
     public override void Exit()
     {
         _timerRunning = false;
+        _timerBarGameObject?.SetActive(false);
+        if (_targetScoreText != null)
+        {
+            _targetScoreText.gameObject.SetActive(false);
+        }
         Debug.Log("Exiting ModifyOrderState");
         // TODO: Lock garnish and spy tool selection
         // Example: UIManager.Instance.DisableGarnishMenu();
