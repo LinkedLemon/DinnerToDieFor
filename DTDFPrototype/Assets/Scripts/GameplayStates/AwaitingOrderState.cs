@@ -10,9 +10,18 @@ public class AwaitingOrderState : GameState
     {
         Debug.Log("Entering AwaitingOrderState");
         
-        OrderManager.Instance.ProcessNextOrder();
+        bool hasOrder = OrderManager.Instance.ProcessNextOrder();
 
-        manager.trayAnimationManager.SendOrder();
+        if (hasOrder)
+        {
+            manager.trayAnimationManager.SendOrder();
+        }
+        else
+        {
+            // Optional: Transition to a 'Game Over' state or display a message
+            Debug.Log("All orders completed!");
+            // For now, the game will idle here. A transition to a game over/credits screen could be added.
+        }
     }
 
     public override void Update()

@@ -10,7 +10,6 @@ TagManager:
   - CocktailSword
   - Thyme
   - Tray
-  - Tutorial
   layers:
   - Default
   - TransparentFX

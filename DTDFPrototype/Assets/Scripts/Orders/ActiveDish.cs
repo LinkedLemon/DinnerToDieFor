@@ -26,22 +26,24 @@ public class ActiveDish
     /// </summary>
     /// <param name="garnishSO">The garnish to add.</param>
     /// <returns>True if the garnish was successfully added, false otherwise.</returns>
-    public bool TryAddGarnish(GarnishGameObject garnishSO)
+    public GarnishAddResult TryAddGarnish(GarnishGameObject garnishSO)
     {
-        if (AppliedGarnishes.Count >= MaxGarnishes)
+        if (AppliedGarnishes.Count >= MaxGarnishes || AppliedGarnishes.Any(g => g._garnishType == garnishSO._garnishType))
         {
-            Debug.LogWarning($"Garnish limit reached for {DishSO.name}. Cannot add {garnishSO.name}.");
-            return false;
+            Debug.LogWarning($"Garnish limit reached or duplicate garnish for {DishSO.name}. Cannot add {garnishSO.name}.");
+            return GarnishAddResult.Failure_DuplicateOrFull;
         }
 
-        if (AppliedGarnishes.Any(g => g._garnishType == garnishSO._garnishType))
+        if (DishSO._preferedGarnishes.Contains(garnishSO._garnishType))
         {
-            Debug.LogWarning($"Dish {DishSO.name} already has garnish of type {garnishSO._garnishType}. Cannot add another.");
-            return false;
+            AppliedGarnishes.Add(garnishSO);
+            Debug.Log($"Added preferred garnish {garnishSO.name} to {DishSO.name}.");
+            return GarnishAddResult.Success_Preferred;
         }
 
-        AppliedGarnishes.Add(garnishSO);
-        Debug.Log($"Added {garnishSO.name} to {DishSO.name}. Total garnishes: {AppliedGarnishes.Count}");
-        return true;
+        // If it's not preferred, it's considered a "bad" garnish for this dish.
+        // We don't add it to the list.
+        Debug.LogWarning($"Added bad garnish {garnishSO.name} to {DishSO.name}.");
+        return GarnishAddResult.Failure_BadGarnish;
     }
 }

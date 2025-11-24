@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum Particle
 {
-    Fire,
-    Sparkle,
-    Steam
+    Good,
+    Bad,
+    Meh
 }
 
 public class ParticleManager : MonoBehaviour

@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public event Action<InputAction.CallbackContext> OnMove;
     public event Action<InputAction.CallbackContext> OnLook;
     public event Action<InputAction.CallbackContext> OnAttack;
+    public event Action<InputAction.CallbackContext> OnAttackCanceled; // Event for attack release
     public event Action<InputAction.CallbackContext> OnInteract;
     public event Action<InputAction.CallbackContext> OnCrouch;
     public event Action<InputAction.CallbackContext> OnJump;
@@ -39,7 +40,10 @@ public class InputManager : MonoBehaviour
             
             inputActions.Player.Move.performed += ctx => OnMove?.Invoke(ctx);
             inputActions.Player.Look.performed += ctx => OnLook?.Invoke(ctx);
+            
             inputActions.Player.Attack.performed += ctx => OnAttack?.Invoke(ctx);
+            inputActions.Player.Attack.canceled += ctx => OnAttackCanceled?.Invoke(ctx);
+
             inputActions.Player.Interact.performed += ctx => OnInteract?.Invoke(ctx);
             inputActions.Player.Crouch.performed += ctx => OnCrouch?.Invoke(ctx);
             inputActions.Player.Jump.performed += ctx => OnJump?.Invoke(ctx);

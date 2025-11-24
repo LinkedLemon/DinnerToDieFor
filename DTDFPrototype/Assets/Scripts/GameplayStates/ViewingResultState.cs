@@ -102,13 +102,11 @@ public class ViewingResultState : GameState
         
         if (result.Win)
         {
-            OrderManager.Instance.ProcessNextOrder();
             SoundManager.instance.PlayAudioClip(_winSound, 1);
         }
         else
         {
             Debug.Log("Order failed. Resetting for next order.");
-            OrderManager.Instance.ProcessNextOrder();
             SoundManager.instance.PlayAudioClip(_loseSound, 1);
         }
 

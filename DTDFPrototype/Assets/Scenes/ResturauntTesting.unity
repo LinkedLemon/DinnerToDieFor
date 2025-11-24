@@ -992,6 +992,8 @@ MonoBehaviour:
   - garnishType: Thyme
     garnishPrefab: {fileID: 3657818016868752455, guid: ed204a28f103f5141b8269d6f86610e2, type: 3}
   spawnYPosition: 1.2
+  dropIndicatorPrefab: {fileID: 3337924409945550295, guid: 10de9f0da6fa9c5418a255c87ef618a6, type: 3}
+  dropIndicatorYPosition: -8.8
 --- !u!4 &181055578
 Transform:
   m_ObjectHideFlags: 0
@@ -1222,6 +1224,7 @@ MonoBehaviour:
   postAnimationDelay: 2
   winSound: {fileID: 8300000, guid: 3f6d5029c1e8786498906d061f4990b9, type: 3}
   loseSound: {fileID: 8300000, guid: a774f77cc842d9345a185a2fe9aa78d2, type: 3}
+  roundDuration: 120
 --- !u!4 &231909862
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,7 +2099,7 @@ GameObject:
   - component: {fileID: 474581293}
   m_Layer: 9
   m_Name: Cube
-  m_TagString: Tutorial
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2136,8 +2139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 2.0987396}
+  m_Center: {x: -7.1940925e-12, y: -2.818366e-10, z: -0.54936975}
 --- !u!23 &474581294
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2303,15 +2306,15 @@ PrefabInstance:
     - target: {fileID: 3292203820596189966, guid: 89f82a672c8024f4892d8aa0916152fd, type: 3}
       propertyPath: '_prefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 5703991685730091523, guid: f339f0281a4a0af47818192145bc9428, type: 3}
+      objectReference: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
     - target: {fileID: 3292203820596189966, guid: 89f82a672c8024f4892d8aa0916152fd, type: 3}
       propertyPath: '_prefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 152623729353706921, guid: d7569fc0fae2e584c9932778e0a5ea8f, type: 3}
+      objectReference: {fileID: 6294508013172393196, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
     - target: {fileID: 3292203820596189966, guid: 89f82a672c8024f4892d8aa0916152fd, type: 3}
       propertyPath: '_prefabs.Array.data[2]'
       value: 
-      objectReference: {fileID: 89375676441393887, guid: d8adfe71f035925489aabfb71bb75b9d, type: 3}
+      objectReference: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
     - target: {fileID: 3292203820596189966, guid: 89f82a672c8024f4892d8aa0916152fd, type: 3}
       propertyPath: _enumerators.Array.size
       value: 3
@@ -6707,6 +6710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b009e047aa3054e952a09d48341632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  maxBonusMultiplier: 0.5
+  targetPointsPerRound: 25
   roundCounter: 1
 --- !u!1 &1560010439
 GameObject:

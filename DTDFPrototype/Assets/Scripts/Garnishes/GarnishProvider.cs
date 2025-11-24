@@ -15,10 +15,10 @@ public class GarnishProvider : MonoBehaviour
 
     private void Start()
     {
-        Despawn();
+        StartCoroutine(nameof(Despawn));
     }
 
-    private IEnumerable<WaitForSeconds> Despawn()
+    private System.Collections.IEnumerator Despawn()
     {
         yield return new WaitForSeconds(5.0f);
         Destroy(gameObject);

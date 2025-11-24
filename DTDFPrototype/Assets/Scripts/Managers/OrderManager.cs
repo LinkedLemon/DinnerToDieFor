@@ -30,16 +30,21 @@ public class OrderManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-        }
+        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
-        // Populate the queue with any initial orders set in the inspector
-        foreach (var order in initialOrders)
+        // Only populate the queue if it's currently empty.
+        // This prevents re-populating on hot reloads in the editor.
+        if (_orderQueue.Count == 0)
         {
-            AddOrderToQueue(order);
+            // Populate the queue with any initial orders set in the inspector
+            foreach (var order in initialOrders)
+            {
+                AddOrderToQueue(order);
+            }
         }
     }
 
@@ -57,22 +62,23 @@ public class OrderManager : MonoBehaviour
     /// <summary>
     /// Processes the next order in the queue. Clears any existing dishes.
     /// </summary>
+    /// <returns>True if an order was processed, false if the queue is empty.</returns>
     [ContextMenu("Process Next Order")]
-    public void ProcessNextOrder()
+    public bool ProcessNextOrder()
     {
+        ClearCurrentDishes();
+
         if (_orderQueue.Count == 0)
         {
-            Debug.Log("No orders in the queue.");
-            return;
+            Debug.Log("No more orders in the queue.");
+            return false;
         }
-
-        ClearCurrentDishes();
 
         _currentOrder = _orderQueue.Dequeue();
         if (_currentOrder._food.Count > dishSpawnPoints.Count)
         {
-            Debug.LogError($"Order '{_currentOrder.name}' has more dishes ({_currentOrder._food.Count}) than available spawn points ({dishSpawnPoints.Count}). Aborting.");
-            return;
+            Debug.LogError($"Order '{_currentOrder.name}' has more dishes ({_currentOrder._food.Count}) than available spawn points ({dishSpawnPoints.Count}). Aborting and clearing dishes.");
+            return false;
         }
 
         for (int i = 0; i < _currentOrder._food.Count; i++)
@@ -105,6 +111,7 @@ public class OrderManager : MonoBehaviour
                 Debug.LogError($"The prefab for '{dishSO.name}' is missing the 'DishTrigger' component on a child object.", dishInstance);
             }
         }
+        return true;
     }
 
     /// <summary>

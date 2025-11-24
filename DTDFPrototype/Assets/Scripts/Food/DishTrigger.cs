@@ -10,6 +10,10 @@ public class DishTrigger : MonoBehaviour
 {
     private ActiveDish _activeDish;
 
+    public AudioClip successSound;
+    public AudioClip badSound;
+    public AudioClip mehSound;
+
     /// <summary>
     /// Initializes the trigger with a reference to its controlling ActiveDish instance.
     /// </summary>
@@ -29,26 +33,41 @@ public class DishTrigger : MonoBehaviour
             if (garnishSO == null) return;
 
             // Attempt to add the garnish to the dish
-            bool addedSuccessfully = _activeDish.TryAddGarnish(garnishSO);
-            Debug.Log($"Garnish addition status: {(addedSuccessfully ? "Success" : "Failed")}");
+            GarnishAddResult result = _activeDish.TryAddGarnish(garnishSO);
 
-            // If the garnish was not added (e.g., list full, duplicate), destroy it.
-            if (!addedSuccessfully)
+            switch (result)
             {
-                Debug.Log($"Destroying redundant garnish: {garnishProvider.name}. Spawning Fire.");
-
-                ParticleManager.instance.SpawnParticleWithEmit(Particle.Fire, gameObject.transform.position, 1.0f, 1);
-                
-                Destroy(other.gameObject);
+                case GarnishAddResult.Success_Preferred:
+                    Debug.Log("Correct garnish added. Spawning Sparkle.");
+                    //TODO: hook up new sound for prefered garnish
+                    ParticleManager.instance.SpawnParticleWithEmit(Particle.Good, gameObject.transform.position, 1.0f, 1);
+                    if (successSound != null)
+                    {
+                        AudioSource.PlayClipAtPoint(successSound, gameObject.transform.position);
+                    }
+                    break;
+                case GarnishAddResult.Failure_BadGarnish:
+                    Debug.Log("Wrong garnish added. Spawning Fire.");
+                    //TODO: hook up new sound for bad garnish
+                    ParticleManager.instance.SpawnParticleWithEmit(Particle.Bad, gameObject.transform.position, 1.0f, 1);
+                    if (badSound != null)
+                    {
+                        AudioSource.PlayClipAtPoint(badSound, gameObject.transform.position);
+                    }
+                    break;
+                case GarnishAddResult.Failure_DuplicateOrFull:
+                    Debug.Log("Duplicate or too many garnishes. Spawning Fire.");
+                    //TODO: hook up new sound for duplicate or full
+                    ParticleManager.instance.SpawnParticleWithEmit(Particle.Meh, gameObject.transform.position, 1.0f, 1);
+                    if (mehSound != null)
+                    {
+                        AudioSource.PlayClipAtPoint(mehSound, gameObject.transform.position);
+                    }
+                    break;
             }
-            else
-            {
-                // Optional: Do something with the garnish object after it's successfully added.
-                // For now, we'll just destroy it.
-                Debug.Log("Spawning Sparkle.");
-                ParticleManager.instance.SpawnParticleWithEmit(Particle.Sparkle, gameObject.transform.position, 1.0f, 1);
-                Destroy(other.gameObject);
-            }
+            
+            // In all cases, destroy the garnish that was used.
+            Destroy(other.gameObject);
         }
     }
 }

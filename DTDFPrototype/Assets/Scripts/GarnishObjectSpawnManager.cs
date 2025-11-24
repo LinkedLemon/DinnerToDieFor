@@ -22,6 +22,12 @@ public class GarnishObjectSpawnManager : MonoBehaviour
     [SerializeField]
     [Tooltip("The fixed Y-axis position where the object will follow the mouse before being dropped.")]
     private float spawnYPosition = 10f;
+    [SerializeField]
+    [Tooltip("Prefab for the visual indicator that shows where the garnish will land.")]
+    private GameObject dropIndicatorPrefab;
+    [SerializeField]
+    [Tooltip("The fixed Y-axis position for the drop indicator, relative to the ground plane.")]
+    private float dropIndicatorYPosition = 0.1f;
 
     // Runtime dictionary for fast lookups.
     private Dictionary<string, GameObject> garnishDictionary;
@@ -31,6 +37,9 @@ public class GarnishObjectSpawnManager : MonoBehaviour
     private Rigidbody currentObjectRigidbody;
     private Camera mainCamera;
     private Plane spawnPlane;
+
+    // State for the drop indicator
+    private GameObject currentDropIndicator;
 
     private void Awake()
     {
@@ -58,7 +67,8 @@ public class GarnishObjectSpawnManager : MonoBehaviour
     {
         if (InputManager.Instance != null)
         {
-            InputManager.Instance.OnAttack += OnDrop;
+            // Subscribe to the release event for the drop
+            InputManager.Instance.OnAttackCanceled += OnDrop;
         }
         else
         {
@@ -70,7 +80,7 @@ public class GarnishObjectSpawnManager : MonoBehaviour
     {
         if (InputManager.Instance != null)
         {
-            InputManager.Instance.OnAttack -= OnDrop;
+            InputManager.Instance.OnAttackCanceled -= OnDrop;
         }
     }
 
@@ -99,11 +109,24 @@ public class GarnishObjectSpawnManager : MonoBehaviour
 
             if (!currentFollowingObject.TryGetComponent<Rigidbody>(out currentObjectRigidbody))
             {
-                currentObjectRigidbody = currentObjectRigidbody.AddComponent<Rigidbody>();
+                currentObjectRigidbody = currentFollowingObject.AddComponent<Rigidbody>(); // Fixed: use currentFollowingObject here
             }
 
             currentObjectRigidbody.isKinematic = true;
             currentObjectRigidbody.useGravity = false;
+
+            // Instantiate and position the drop indicator
+            if (dropIndicatorPrefab != null)
+            {
+                currentDropIndicator = Instantiate(dropIndicatorPrefab);
+                // Position indicator at the same X-Z as the garnish, but at its fixed Y
+                currentDropIndicator.transform.position = new Vector3(currentFollowingObject.transform.position.x, dropIndicatorYPosition, currentFollowingObject.transform.position.z);
+            }
+            else
+            {
+                Debug.LogWarning("Drop Indicator Prefab is not assigned in GarnishObjectSpawnManager. Cannot show drop indicator.", this);
+            }
+
 
             Debug.Log($"Spawning and holding garnish: {garnishType}");
             UpdateFollowingPosition(); // Position it correctly right away
@@ -131,6 +154,12 @@ public class GarnishObjectSpawnManager : MonoBehaviour
         {
             Vector3 worldPosition = ray.GetPoint(distance);
             currentFollowingObject.transform.position = worldPosition;
+
+            // Update drop indicator position
+            if (currentDropIndicator != null)
+            {
+                currentDropIndicator.transform.position = new Vector3(worldPosition.x, dropIndicatorYPosition, worldPosition.z);
+            }
         }
     }
 
@@ -141,6 +170,13 @@ public class GarnishObjectSpawnManager : MonoBehaviour
         Debug.Log("Dropping garnish.");
         currentObjectRigidbody.isKinematic = false;
         currentObjectRigidbody.useGravity = true;
+
+        // Destroy the drop indicator
+        if (currentDropIndicator != null)
+        {
+            Destroy(currentDropIndicator);
+            currentDropIndicator = null;
+        }
 
         // Release control
         currentFollowingObject = null;
