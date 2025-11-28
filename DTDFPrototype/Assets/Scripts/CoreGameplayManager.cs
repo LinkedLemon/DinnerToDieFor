@@ -9,6 +9,10 @@ public class CoreGameplayManager : MonoBehaviour
     internal TrayPositionManager trayAnimationManager;
     [SerializeField]
     internal HitTagEventRelay bellEventRelay;
+
+    [Header("Camera Animation")]
+    [SerializeField] internal Animator cameraAnimator;
+
     
     [Header("UI References")]
     [SerializeField] private GameObject scoreScreen;
@@ -45,7 +49,7 @@ public class CoreGameplayManager : MonoBehaviour
     {
         AwaitingOrderState = new AwaitingOrderState(this);
         ModifyOrderState = new ModifyOrderState(this, roundDuration, timerBar, colorBar, timerGradient, timerBar.gameObject, targetScoreText);
-        ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay, winSound, loseSound);
+        ViewingResultState = new ViewingResultState(this, scoreScreen, winScreen, loseScreen, scoreText, slideDuration, scoreCountDuration, bounceDuration, postAnimationDelay, winSound, loseSound, cameraAnimator);
         
         bellEventRelay.OnMatch.AddListener(SubmitOrder);
 

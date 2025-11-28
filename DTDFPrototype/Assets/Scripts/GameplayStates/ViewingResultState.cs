@@ -20,8 +20,9 @@ public class ViewingResultState : GameState
 
     private readonly AudioClip _winSound;
     private readonly AudioClip _loseSound;
+    private readonly Animator _cameraAnimator;
 
-    public ViewingResultState(CoreGameplayManager manager, GameObject scoreScreen, GameObject winScreen, GameObject loseScreen, TextMeshProUGUI scoreText, float slideDuration, float scoreCountDuration, float bounceDuration, float postAnimationDelay, AudioClip winSound, AudioClip loseSound) : base(manager)
+    public ViewingResultState(CoreGameplayManager manager, GameObject scoreScreen, GameObject winScreen, GameObject loseScreen, TextMeshProUGUI scoreText, float slideDuration, float scoreCountDuration, float bounceDuration, float postAnimationDelay, AudioClip winSound, AudioClip loseSound, Animator cameraAnimator) : base(manager)
     {
         _scoreScreen = scoreScreen;
         _winScreen = winScreen;
@@ -34,6 +35,7 @@ public class ViewingResultState : GameState
         
         _winSound = winSound;
         _loseSound = loseSound;
+        _cameraAnimator = cameraAnimator;
 
         if (_scoreScreen != null)
         {
@@ -43,6 +45,10 @@ public class ViewingResultState : GameState
 
     public override void Enter()
     {
+        if (_cameraAnimator != null)
+        {
+            _cameraAnimator.SetBool("Active", true);
+        }
         manager.StartCoroutine(AnimateResults());
     }
 
@@ -136,6 +142,10 @@ public class ViewingResultState : GameState
     public override void Exit()
     {
         Debug.Log("Exiting ViewingResultState");
+        if (_cameraAnimator != null)
+        {
+            _cameraAnimator.SetBool("Active", false);
+        }
         if (_scoreScreen != null)
         {
             _scoreScreen.SetActive(false);

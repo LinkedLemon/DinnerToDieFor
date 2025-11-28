@@ -1048,6 +1048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoreGameplayManager
   trayAnimationManager: {fileID: 437094559}
   bellEventRelay: {fileID: 1181020032}
+  cameraAnimator: {fileID: 854161975}
   scoreScreen: {fileID: 530312066}
   winScreen: {fileID: 714157228}
   loseScreen: {fileID: 765269893}
@@ -3611,6 +3612,7 @@ GameObject:
   - component: {fileID: 854161970}
   - component: {fileID: 854161974}
   - component: {fileID: 854161973}
+  - component: {fileID: 854161975}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3751,6 +3753,28 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!95 &854161975
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854161969}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 49f4585d9f3f6914ab54728389afa04b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &874080896
 GameObject:
   m_ObjectHideFlags: 0
