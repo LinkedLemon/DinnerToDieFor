@@ -27,13 +27,6 @@ public class CustomerAIManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GameObject newCustomer = Instantiate(_customerPrefab.gameObject, _spawnPoint.position, _spawnPoint.rotation);
-        newCustomer.GetComponent<CustomerAI>().WalkToSpot(_seats[0].position);
-        newCustomer.GetComponent<CustomerAI>().SetName("Test");
-    }
-
     public void ShowReactions(List<CustomerReaction> reactions)
     {
         for (int i = 0; i < _customers.Count; i++)
@@ -55,7 +48,7 @@ public class CustomerAIManager : MonoBehaviour
         {
             GameObject newCustomer= Instantiate(_customerPrefab.gameObject,_spawnPoint.position,_spawnPoint.rotation);
             newCustomer.GetComponent<CustomerAI>().WalkToSpot(_seats[i].position);
-            newCustomer.GetComponent<CustomerAI>().SetName("Test");
+            newCustomer.GetComponent<CustomerAI>().SetName("Test");//Replace "Test" with the actual name of the customer
             _customers.Add(newCustomer);
         }
     }
@@ -67,4 +60,12 @@ public class CustomerAIManager : MonoBehaviour
             _customers[i].GetComponent<CustomerAI>().WalkToSpot(_leavingSpot.position);
         }
     }
+
+    //Testing
+    /*private void Start()
+    {
+        GameObject newCustomer = Instantiate(_customerPrefab.gameObject, _spawnPoint.position, _spawnPoint.rotation);
+        newCustomer.GetComponent<CustomerAI>().WalkToSpot(_seats[0].position);
+        newCustomer.GetComponent<CustomerAI>().SetName("Test");
+    }*/
 }
