@@ -1,4 +1,4 @@
-using TMPro;
+/*using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +45,7 @@ public class CoreGameplayManager : MonoBehaviour
 
     private bool _isSubmitting = false; // New flag to prevent re-submitting
 
-    private void Awake()
+    /*private void Awake()
     {
         AwaitingOrderState = new AwaitingOrderState(this);
         ModifyOrderState = new ModifyOrderState(this, roundDuration, timerBar, colorBar, timerGradient, timerBar.gameObject, targetScoreText);
@@ -127,5 +127,5 @@ public class CoreGameplayManager : MonoBehaviour
         {
             _isSubmitting = false;
         }
-    }
-}
+    }#1#
+}*/

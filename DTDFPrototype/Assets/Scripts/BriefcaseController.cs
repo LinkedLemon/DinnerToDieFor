@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class BriefcaseController : MonoBehaviour
@@ -60,3 +61,4 @@ public class BriefcaseController : MonoBehaviour
         }
     }
 }
+*/

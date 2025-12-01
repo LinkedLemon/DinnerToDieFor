@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -60,3 +61,4 @@ public class ActiveDish
         return GarnishAddResult.Failure_BadGarnish;
     }
 }
+*/

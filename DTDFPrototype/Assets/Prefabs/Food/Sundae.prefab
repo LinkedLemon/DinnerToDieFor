@@ -291,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6519595317560101114}
   - component: {fileID: 4458293870674174388}
-  - component: {fileID: 661168888741320670}
+  - component: {fileID: 79248361573055269}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -335,7 +335,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.33506012, y: 0.1651302, z: 0.32438773}
   m_Center: {x: 0, y: -0.035948765, z: 0}
---- !u!114 &661168888741320670
+--- !u!114 &79248361573055269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,9 +351,6 @@ MonoBehaviour:
   - {fileID: 537076993381970922}
   - {fileID: 9216995719706131121}
   - {fileID: 8045852007391334451}
-  successSound: {fileID: 8300000, guid: 13dbb9cc2d90e9b4c92a7908ab9abb20, type: 3}
-  badSound: {fileID: 8300000, guid: 69c1e6dbe97db864c8d595023f1858d3, type: 3}
-  mehSound: {fileID: 8300000, guid: 5993bc19156a2a94d95cce023c58c9ef, type: 3}
 --- !u!1 &5938169351617135530
 GameObject:
   m_ObjectHideFlags: 0

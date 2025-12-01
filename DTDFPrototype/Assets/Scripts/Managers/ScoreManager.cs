@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,11 +62,11 @@ public class ScoreManager : MonoBehaviour
             {
                 if (dishSO._preferedGarnishes.Contains(appliedGarnish._garnishType))
                 {
-                    dishScore += appliedGarnish._pointValue;
+                    //dishScore += appliedGarnish._pointValue;
                 }
                 else if (dishSO._dislikedGarnishes.Contains(appliedGarnish._garnishType))
                 {
-                    dishScore -= appliedGarnish._failedPointValue;
+                    //dishScore -= appliedGarnish._failedPointValue;
                 }
             }
             totalScore += dishScore;
@@ -114,4 +115,5 @@ public class ScoreResult
         Win = win;
     }
 }
+*/
 

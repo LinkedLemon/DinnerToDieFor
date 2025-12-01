@@ -5,11 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cherry
-  - 'Olive '
   - Paprika
   - CocktailSword
   - Thyme
   - Tray
+  - Olive
   layers:
   - Default
   - TransparentFX

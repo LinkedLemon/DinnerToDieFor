@@ -1,8 +1,8 @@
 public abstract class GameState
 {
-    protected CoreGameplayManager manager;
+    protected GameplayManager manager;
 
-    public GameState(CoreGameplayManager manager)
+    public GameState(GameplayManager manager)
     {
         this.manager = manager;
     }

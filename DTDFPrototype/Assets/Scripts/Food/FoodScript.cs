@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class FoodScript : MonoBehaviour
         }
         else if (_additive is GarnishGameObject)//If the additive is a garnish
         {
-            _addedGarnish.Add((GarnishGameObject)_additive);
+            //_addedGarnish.Add((GarnishGameObject)_additive);
         }
 
     }
@@ -46,3 +47,4 @@ public class FoodScript : MonoBehaviour
         return _foodObject;
     }
 }
+*/

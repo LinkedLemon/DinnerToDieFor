@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,9 @@ public class TrayPositionManager : MonoBehaviour
     [Header("Object to Move")]
     [Tooltip("The tray object that will be moved.")]
     [SerializeField] private GameObject tray;
+
+    [Tooltip("The specific spawn points on the tray for the 5 dishes.")]
+    public List<Transform> DishSpawnPoints;
 
     [Header("Waypoints")]
     [Tooltip("The starting point for the order (e.g., kitchen).")]
@@ -31,6 +35,11 @@ public class TrayPositionManager : MonoBehaviour
     
     [SerializeField] private AudioClip moveSound;
     [SerializeField] private AudioClip bellSound;
+    
+    public Transform GetTrayTransform()
+    {
+        return tray.transform;
+    }
     
     private void Start()
     {

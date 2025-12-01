@@ -147,6 +147,25 @@ public class GarnishObjectSpawnManager : MonoBehaviour
 
     private void UpdateFollowingPosition()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                Debug.LogError("[GarnishObjectSpawnManager] MainCamera is missing! Tag your camera as 'MainCamera'.");
+                return;
+            }
+        }
+
+        if (Mouse.current == null)
+        {
+            Debug.LogError("[GarnishObjectSpawnManager] Mouse.current is null! Ensure Input System is active.");
+            return;
+        }
+
+        // Recreate plane to handle runtime inspector changes
+        spawnPlane = new Plane(Vector3.up, new Vector3(0, spawnYPosition, 0));
+
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
         Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
 
@@ -160,6 +179,10 @@ public class GarnishObjectSpawnManager : MonoBehaviour
             {
                 currentDropIndicator.transform.position = new Vector3(worldPosition.x, dropIndicatorYPosition, worldPosition.z);
             }
+        }
+        else
+        {
+            Debug.LogWarning($"[GarnishObjectSpawnManager] Raycast failed! Plane Y: {spawnYPosition}, Cam Y: {mainCamera.transform.position.y}. Ensure SpawnYPosition is LOWER than Camera Y.");
         }
     }
 

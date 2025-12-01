@@ -1,0 +1,32 @@
+This is a Unity 6.2 project for "Dinner To Die For", currently undergoing a rework to improve gameplay. The core gameplay involves a "garnisher" serving dishes to 5 agents, one of whom is a spy. The player must add garnishes to satisfy each customer's preferences, manage their patience (which decreases if dishes are bad), and identify the spy. The spy's tell is a subtle change in their garnish preferences over rounds. Incorrectly killing an innocent agent with an allergen results in a game over, while successfully killing the spy with their allergen results in a win. Every two rounds, the spy will kill an innocent customer, and if only one normal customer remains with the spy, it's a game over.
+
+Work done so far within the 'Assets/Rework' folder:
+
+1.  **Scriptable Objects:**
+    *   `CustomerScriptObject.cs`: Defines customer data including name, lists for good/meh/bad `GarnishEnums.GarnishType` preferences, and an `Allergy` (`GarnishEnums.GarnishType`).
+    *   `DishScriptObject.cs`: Holds a `GameObject DishPrefab` for the visual representation of a dish.
+
+2.  **Core Gameplay Loop & State Management:**
+    *   `GameplayManager.cs`: The central hub, managing game states.
+    *   `GameState.cs` (base class), `AwaitingOrderState.cs`, `ModifyOrderState.cs`, `ViewingResultState.cs`: Refactored to use the new `GameplayManager` and simplified to their core logic, handling transitions between customer ordering, player modifying orders, and viewing results.
+    *   `TrayPositionManager.cs`: Manages tray movement and now exposes `DishSpawnPoints` for precise dish placement.
+
+3.  **Customer & Round Management (`RoundManager.cs`):**
+    *   Generates sets of 5 random `CustomerRuntimeData` instances (created from `CustomerScriptObject`).
+    *   Assigns one customer as the spy, tracking their patience and status.
+    *   Implements spy mechanics: killing a random normal customer every two rounds and subtly shifting their garnish preferences after each round.
+    *   Handles assigning dishes to customers and spawning dish prefabs onto designated points on the tray (`SpawnDishesOnTray`).
+    *   Separated round processing into `CalculateAndShowFeedback()` (evaluates dish scores, updates patience/alive status, but keeps dishes visible) and `CleanupAndStartNextRound()` (destroys dishes, checks win/lose conditions, and progresses to the next round/game).
+
+4.  **Scoring Logic (`ScoreCalculator.cs`):**
+    *   Calculates a `DishCalculationResult` (score, reaction, allergy status) for each dish based on applied garnishes and customer preferences.
+    *   Determines customer reaction (Positive, Meh, Negative, Dead) based on score.
+    *   Used by `RoundManager` to adjust customer patience (+5 for Positive dish, -5 for Negative dish).
+
+5.  **Garnish Interaction:**
+    *   `ActiveDish.cs`: A runtime object holding `DishScriptObject`, `CustomerRuntimeData`, and applied garnishes, validating garnishes against customer preferences.
+    *   `DishTrigger.cs`: Detects garnish collisions, uses `ActiveDish` for validation, and attaches garnish visuals. Particle and sound effects removed as feedback is now customer-driven.
+    *   `GarnishObjectSpawnManager.cs`: Spawns draggable garnish prefabs based on a string identifier (tag) and handles mouse-following logic.
+    *   `MouseClickRaycast.cs` and `HitTagEventRelay.cs`: The input system for detecting clicks on garnish sources and relaying the garnish type (via tag) to the `GarnishObjectSpawnManager`.
+
+The gameplay loop from customer generation to order submission, feedback calculation, and round progression is now functional.
