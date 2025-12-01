@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class CustomerRuntimeData
@@ -57,6 +58,12 @@ public class RoundManager : MonoBehaviour
     [Header("Runtime State")]
     public List<CustomerRuntimeData> ActiveCustomers = new List<CustomerRuntimeData>();
     public int RoundCount = 0;
+    public int SpyCatchStreak = 0;
+
+    public UnityEvent OnNewRoundStarted;
+    public UnityEvent OnGameWon;
+    public UnityEvent OnGameLost;
+    public UnityEvent<int> OnSpyStreakChanged = new UnityEvent<int>();
     
     private List<ActiveDish> _currentRoundDishes = new List<ActiveDish>();
     
@@ -72,8 +79,24 @@ public class RoundManager : MonoBehaviour
 
     public void StartNewGame()
     {
+        StartCoroutine(StartNewGameRoutine());
+    }
+
+    private System.Collections.IEnumerator StartNewGameRoutine()
+    {
+        CleanupDishes(); // Ensure tray is clear before starting new game
+        
         RoundCount = 0;
         GenerateNewCustomerSet();
+        
+        if (CustomerAIManager.instance != null)
+        {
+            CustomerAIManager.instance.SpawnCustomers(ActiveCustomers);
+        }
+        
+        // Wait for customers to walk to their seats
+        yield return new WaitForSeconds(4.0f);
+        
         StartNewRound();
     }
 
@@ -81,6 +104,7 @@ public class RoundManager : MonoBehaviour
     {
         RoundCount++;
         AssignDishes();
+        OnNewRoundStarted?.Invoke();
         
         // Handle Spy Kill logic if applicable
         if (RoundCount > 1 && RoundCount % 2 != 0) 
@@ -94,7 +118,9 @@ public class RoundManager : MonoBehaviour
         if (CheckSpyWinCondition())
         {
             Debug.Log("Game Over: Spy won by killing everyone.");
-            return; // TODO: Game Over State
+            if (CustomerAIManager.instance != null) CustomerAIManager.instance.ClearAllCustomers();
+            StartNewGame();
+            return; 
         }
 
         if (RoundCount > 1)
@@ -102,6 +128,7 @@ public class RoundManager : MonoBehaviour
             ShiftSpyTastes();
         }
     }
+
 
     public void SpawnDishesOnTray(List<Transform> spawnPoints)
     {
@@ -143,6 +170,12 @@ public class RoundManager : MonoBehaviour
             dishObj.transform.localPosition = Vector3.zero;
             dishObj.transform.localRotation = Quaternion.identity;
             
+            Hoverable hoverable = dishObj.GetComponent<Hoverable>();
+            if (hoverable != null)
+            {
+                hoverable.hoverText = customer.Data.CustomerName;
+            }
+
             ActiveDish activeDish = new ActiveDish(customer.AssignedDish, customer, dishObj);
             
             DishTrigger trigger = dishObj.GetComponentInChildren<DishTrigger>();
@@ -282,7 +315,11 @@ public class RoundManager : MonoBehaviour
             CustomerRuntimeData victim = potentialVictims[Random.Range(0, potentialVictims.Count)];
             victim.IsAlive = false;
             Debug.Log($"Spy killed {victim.Data.CustomerName}!");
-            // TODO: Update visuals (empty chair)
+            
+            if (CustomerAIManager.instance != null)
+            {
+                CustomerAIManager.instance.CustomerDies(victim);
+            }
         }
     }
 
@@ -351,39 +388,61 @@ public class RoundManager : MonoBehaviour
     private bool _roundEndedByAllergy = false;
     private bool _spyKilledByAllergy = false;
 
-    public void CalculateAndShowFeedback()
+    public System.Collections.IEnumerator CalculateAndShowFeedbackRoutine(Action onComplete = null)
     {
+        // Delay before starting the first reaction to allow camera to look up
+        yield return new WaitForSeconds(1.5f);
+
         _roundEndedByAllergy = false;
         _spyKilledByAllergy = false;
 
-        foreach (var dish in _currentRoundDishes)
+        bool innocentDied = false;
+        bool spyDied = false;
+
+        foreach (var customer in ActiveCustomers)
         {
-            CustomerRuntimeData customer = dish.CustomerData;
+            if (!customer.IsAlive) continue;
+
+            ActiveDish dish = _currentRoundDishes.Find(d => d.CustomerData == customer);
+            if (dish == null) continue;
+
             DishCalculationResult result = ScoreCalculator.CalculateDishScore(dish);
 
             if (result.ServedAllergy)
             {
                 Debug.Log($"[RoundManager] Customer {customer.Data.CustomerName} served ALLERGY!");
-                _roundEndedByAllergy = true;
                 customer.IsAlive = false; 
                 
                 if (customer.IsSpy)
                 {
-                    _spyKilledByAllergy = true;
+                    spyDied = true;
                 }
+                else
+                {
+                    innocentDied = true;
+                }
+
+                if (CustomerAIManager.instance != null)
+                {
+                    CustomerAIManager.instance.TriggerReaction(customer, CustomerReaction.dead);
+                    CustomerAIManager.instance.CustomerDies(customer);
+                }
+                
+                // Wait a moment to see the death
+                yield return new WaitForSeconds(2.0f);
             }
             else
             {
                 int patienceChange = 0;
                 switch (result.Reaction)
                 {
-                    case CustomerReaction.Positive:
+                    case CustomerReaction.happy:
                         patienceChange = 5;
                         break;
-                    case CustomerReaction.Negative:
+                    case CustomerReaction.dislike:
                         patienceChange = -5;
                         break;
-                    case CustomerReaction.Meh:
+                    case CustomerReaction.neutral:
                         patienceChange = 0;
                         break;
                 }
@@ -397,14 +456,35 @@ public class RoundManager : MonoBehaviour
                 {
                     Debug.Log($"Customer {customer.Data.CustomerName} reaction: {result.Reaction}. Patience unchanged.");
                 }
+
+                if (CustomerAIManager.instance != null)
+                {
+                    CustomerAIManager.instance.TriggerReaction(customer, result.Reaction);
+                    if (customer.Patience <= 0)
+                    {
+                        CustomerAIManager.instance.CustomerLeaves(customer);
+                    }
+                }
+                
+                // Wait for next customer
+                yield return new WaitForSeconds(2.0f);
             }
-            // Do NOT destroy dishes here. Wait for viewing.
         }
+        
+        // Determine final round state based on all results
+        if (innocentDied || spyDied)
+        {
+            _roundEndedByAllergy = true;
+            // Win condition: Spy died AND no innocent died.
+            // If an innocent died, it overrides the spy death and counts as a loss.
+            _spyKilledByAllergy = spyDied && !innocentDied;
+        }
+        
+        onComplete?.Invoke();
     }
 
-    public void CleanupAndStartNextRound()
+    private void CleanupDishes()
     {
-        // Cleanup visuals
         foreach (var dish in _currentRoundDishes)
         {
             if (dish.DishInstance != null)
@@ -413,18 +493,32 @@ public class RoundManager : MonoBehaviour
             }
         }
         _currentRoundDishes.Clear();
+    }
+
+    public void CleanupAndStartNextRound()
+    {
+        // Cleanup visuals
+        CleanupDishes();
 
         // Check End Conditions
         if (_roundEndedByAllergy)
         {
+            if (CustomerAIManager.instance != null) CustomerAIManager.instance.ClearAllCustomers();
+
             if (_spyKilledByAllergy)
             {
                 Debug.Log("SPY KILLED BY ALLERGY! YOU WIN! Starting New Game.");
+                SpyCatchStreak++;
+                OnSpyStreakChanged?.Invoke(SpyCatchStreak);
+                OnGameWon?.Invoke();
                 StartNewGame(); 
             }
             else
             {
                 Debug.Log("INNOCENT KILLED BY ALLERGY! YOU LOSE! Restarting.");
+                SpyCatchStreak = 0;
+                OnSpyStreakChanged?.Invoke(SpyCatchStreak);
+                OnGameLost?.Invoke();
                 StartNewGame(); 
             }
             return;
@@ -434,6 +528,12 @@ public class RoundManager : MonoBehaviour
         if (CheckSpyWinCondition())
         {
             Debug.Log("Game Over: Spy won by killing everyone.");
+            if (CustomerAIManager.instance != null) CustomerAIManager.instance.ClearAllCustomers();
+            
+            SpyCatchStreak = 0;
+            OnSpyStreakChanged?.Invoke(SpyCatchStreak);
+            OnGameLost?.Invoke();
+            
             StartNewGame(); // Or Game Over screen
             return;
         }
@@ -447,7 +547,7 @@ public class RoundManager : MonoBehaviour
     // but GameplayManager should call the new methods.
     public void CalculateRoundResults()
     {
-        CalculateAndShowFeedback();
+        //CalculateAndShowFeedback();
         CleanupAndStartNextRound();
     }
 }

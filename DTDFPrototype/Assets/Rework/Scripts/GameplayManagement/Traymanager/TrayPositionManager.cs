@@ -43,7 +43,11 @@ public class TrayPositionManager : MonoBehaviour
     
     private void Start()
     {
-        SendOrder();
+        if (tray != null && pointA != null)
+        {
+            tray.transform.position = pointA.position;
+            tray.SetActive(false);
+        }
     }
     
     public void SendOrder()

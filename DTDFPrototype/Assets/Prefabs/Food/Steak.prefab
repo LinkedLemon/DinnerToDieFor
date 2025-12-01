@@ -159,78 +159,6 @@ MonoBehaviour:
   - {fileID: 9134142822137330340}
   - {fileID: 6418986241504766118}
   - {fileID: 8053029074637265344}
---- !u!1 &5247500935499909410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1229736903434261301}
-  - component: {fileID: 5003344277888590732}
-  - component: {fileID: 3649421567539802696}
-  m_Layer: 0
-  m_Name: Cube (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1229736903434261301
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5247500935499909410}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.106, z: 0}
-  m_LocalScale: {x: 0.26, y: 0.26, z: 0.26}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 7241356712787213409}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5003344277888590732
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5247500935499909410}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.7619114, y: 1.1254336, z: 1.7577273}
-  m_Center: {x: 0, y: 0.06271687, z: 0}
---- !u!114 &3649421567539802696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5247500935499909410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ca1518e48f27540810b98554ab43b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hoverable
-  hoverText: The Ambassador's Steak
-  fontType: {fileID: 11400000, guid: 29203caf5cf3803409ab076c22f449f1, type: 2}
-  textOffset: {x: 0, y: 0.5, z: 0}
-  fontSize: 1
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  animationTime: 0.2
 --- !u!1 &5476507491368640413
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +199,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7241356712787213409}
+  - component: {fileID: 2884121874428215917}
+  - component: {fileID: 5024964626231822015}
   m_Layer: 0
   m_Name: Steak
   m_TagString: Untagged
@@ -296,10 +226,48 @@ Transform:
   - {fileID: 8053029074637265344}
   - {fileID: 6519595317560101114}
   - {fileID: 3204108949743728371}
-  - {fileID: 1229736903434261301}
   - {fileID: 612132891727176051}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2884121874428215917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7185436262769992004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ca1518e48f27540810b98554ab43b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hoverable
+  hoverText: Jeff
+  fontType: {fileID: 11400000, guid: 29203caf5cf3803409ab076c22f449f1, type: 2}
+  textOffset: {x: 0, y: 0.2, z: 0}
+  fontSize: 1
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  animationTime: 0.2
+--- !u!65 &5024964626231822015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7185436262769992004}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.43083745, y: 0.24638298, z: 0.4490189}
+  m_Center: {x: 0, y: 0.12425949, z: 0}
 --- !u!1 &8236808149914785306
 GameObject:
   m_ObjectHideFlags: 0

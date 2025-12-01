@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca60734d7104b3e4eb8efab13dc0658b, type: 3}
   m_Name: Cherry
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
-  _name: Cherry
-  _pointValue: 20
-  _failedPointValue: 10
-  _heatValue: 0
-  _failedHeatValue: 0
   _garnishType: 1
   GarnishPrefab: {fileID: 3747797438753650736, guid: 8a28ee92ca94e284a9ac8d98bea4fd82, type: 3}

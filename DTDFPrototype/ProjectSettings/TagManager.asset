@@ -10,6 +10,8 @@ TagManager:
   - Thyme
   - Tray
   - Olive
+  - 'Olive '
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Garnish
   - Bell
   - Tutorial
-  - 
+  - Customer
   - 
   - 
   - 

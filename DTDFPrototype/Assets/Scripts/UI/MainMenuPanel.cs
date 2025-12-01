@@ -17,7 +17,7 @@ public class MainMenuPanel : MonoBehaviour
     {
        // Debug.Log("Start Game button clicked!");
         UIManager.Instance.HideAllPanels(); 
-        SceneLoader.Instance.LoadScene("ResturauntTesting"); 
+        SceneLoader.Instance.LoadScene("ProperGameplayScene"); 
     }
 
 

@@ -1331,6 +1331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrayPositionManager
   tray: {fileID: 1732989491}
+  DishSpawnPoints: []
   pointA: {fileID: 874080897}
   pointB: {fileID: 212735104}
   pointC: {fileID: 1733118459}
@@ -7361,7 +7362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6276772339818187638, guid: be50cc0702b633446a65853b2af1e9f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.932
       objectReference: {fileID: 0}
     - target: {fileID: 6276772339818187638, guid: be50cc0702b633446a65853b2af1e9f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7515,7 +7516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7805965318761107941, guid: 524e2bf5af764dc4da668016e88a05d5, type: 3}
+  - {fileID: 2100000, guid: 206f4a0bd4966474e9731f6ea41cc5e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7705,7 +7706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806065081370485821, guid: fb5d4e55870584c4489d41b57cdb136c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.932
       objectReference: {fileID: 0}
     - target: {fileID: 7806065081370485821, guid: fb5d4e55870584c4489d41b57cdb136c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7929,7 +7930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9197894221506169489, guid: e37d2baa88e968343a348a4ee3b4ca6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.932
       objectReference: {fileID: 0}
     - target: {fileID: 9197894221506169489, guid: e37d2baa88e968343a348a4ee3b4ca6e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8078,7 +8079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2178546798334686416, guid: d7fa8e44f2dedda478c620453059a3e4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.932
       objectReference: {fileID: 0}
     - target: {fileID: 2178546798334686416, guid: d7fa8e44f2dedda478c620453059a3e4, type: 3}
       propertyPath: m_LocalPosition.z

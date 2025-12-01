@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public enum CustomerReaction
-{
-    Positive,
-    Meh,
-    Negative,
-    Dead
-}
+// public enum CustomerReaction
+// {
+//     Positive,
+//     Meh,
+//     Negative,
+//     Dead
+// }
 
 public struct DishCalculationResult
 {
@@ -31,7 +31,7 @@ public static class ScoreCalculator
             if (customer.CurrentAllergy == garnish)
             {
                 result.ServedAllergy = true;
-                result.Reaction = CustomerReaction.Dead;
+                result.Reaction = CustomerReaction.dead;
                 return result; // Immediate exit on allergy
             }
 
@@ -50,15 +50,15 @@ public static class ScoreCalculator
         // Determine Reaction based on Score
         if (result.FinalScore > 0)
         {
-            result.Reaction = CustomerReaction.Positive;
+            result.Reaction = CustomerReaction.happy;
         }
         else if (result.FinalScore < 0)
         {
-            result.Reaction = CustomerReaction.Negative;
+            result.Reaction = CustomerReaction.dislike;
         }
         else
         {
-            result.Reaction = CustomerReaction.Meh;
+            result.Reaction = CustomerReaction.neutral;
         }
 
         return result;

@@ -48,7 +48,8 @@ public class Hoverable : MonoBehaviour
         {
             StopCoroutine(_animationCoroutine);
         }
-        _animationCoroutine = StartCoroutine(AnimateScale(Vector3.one));
+        _textObject.transform.localScale = Vector3.one; // Snap to full size immediately
+
     }
 
     public void OnHoverExit()

@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca60734d7104b3e4eb8efab13dc0658b, type: 3}
   m_Name: Olive
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
-  _name: Olive
-  _pointValue: 25
-  _failedPointValue: 20
-  _heatValue: 0
-  _failedHeatValue: 0
   _garnishType: 2
   GarnishPrefab: {fileID: 5839065267113977145, guid: 1fbe9a192e9341d499c00c2630c1857b, type: 3}

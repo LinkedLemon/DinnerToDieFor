@@ -8,6 +8,16 @@ public class GameplayManager : MonoBehaviour
     [Header("Managers")]
     public TrayPositionManager trayManager;
     public RoundManager roundManager;
+    public CameraControlManager cameraControl;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip bellSound;
+
+    [Header("Win/Lose UI")]
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
 
     [Header("Events")]
     public UnityEvent OnOrderSubmitted;
@@ -36,14 +46,43 @@ public class GameplayManager : MonoBehaviour
     {
         if (roundManager != null)
         {
+            roundManager.OnNewRoundStarted.AddListener(() => 
+            {
+                HideEndScreens();
+                TransitionToState(AwaitingOrderState);
+            });
+            
+            roundManager.OnGameWon.AddListener(ShowWinScreen);
+            roundManager.OnGameLost.AddListener(ShowLoseScreen);
+
             roundManager.StartNewGame();
         }
-        TransitionToState(AwaitingOrderState);
+        // Removed manual TransitionToState here to wait for RoundManager
+        
+        SoundManager.instance.PlayMusic(MusicType.Game, 0.3f);
     }
 
     private void Update()
     {
         _currentState?.Update();
+    }
+
+    private void ShowWinScreen()
+    {
+        if (winScreen != null) winScreen.SetActive(true);
+        if (SoundManager.instance != null && winSound != null) SoundManager.instance.PlayAudioClip(winSound, 1);
+    }
+
+    private void ShowLoseScreen()
+    {
+        if (loseScreen != null) loseScreen.SetActive(true);
+        if (SoundManager.instance != null && loseSound != null) SoundManager.instance.PlayAudioClip(loseSound, 1);
+    }
+
+    private void HideEndScreens()
+    {
+        if (winScreen != null) winScreen.SetActive(false);
+        if (loseScreen != null) loseScreen.SetActive(false);
     }
 
     private void InitializeStates()
@@ -78,8 +117,13 @@ public class GameplayManager : MonoBehaviour
 
     public void SubmitOrder()
     {
+        // Only allow submission if we are in ModifyOrderState
+        if (_currentState != ModifyOrderState) return;
+
         // Logic when player submits dish
         trayManager.SubmittedOrder();
+        if (cameraControl != null) cameraControl.TriggerLookUp();
+        if (SoundManager.instance != null && bellSound != null) SoundManager.instance.PlayAudioClip(bellSound, 1);
         OnOrderSubmitted?.Invoke();
         TransitionToState(ViewingResultState);
     }
@@ -92,7 +136,6 @@ public class GameplayManager : MonoBehaviour
             roundManager.CleanupAndStartNextRound();
         }
         OnRoundEnded?.Invoke();
-        TransitionToState(AwaitingOrderState);
     }
 
     public void TrySubmitCurrentState()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class MouseClickRaycast : MonoBehaviour
 {
@@ -47,6 +48,9 @@ public class MouseClickRaycast : MonoBehaviour
     {
         if (mainCamera == null) return;
 
+        // Check for UI hover as well? Usually not needed for hover text, but maybe?
+        // For now, we only block CLICKS on UI.
+        
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
@@ -87,6 +91,12 @@ public class MouseClickRaycast : MonoBehaviour
 
         // We only care about the "performed" phase of the action (the click itself)
         if (!context.performed) return;
+
+        // Prevent clicking through UI
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);

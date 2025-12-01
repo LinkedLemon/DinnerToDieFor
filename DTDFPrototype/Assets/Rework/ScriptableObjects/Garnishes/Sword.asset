@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca60734d7104b3e4eb8efab13dc0658b, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
-  _name: Sword
-  _pointValue: 5
-  _failedPointValue: 15
-  _heatValue: 0
-  _failedHeatValue: 0
   _garnishType: 4
   GarnishPrefab: {fileID: 241849679776837409, guid: 85be1e85a6806fe40ba8d4d60ee411cd, type: 3}
