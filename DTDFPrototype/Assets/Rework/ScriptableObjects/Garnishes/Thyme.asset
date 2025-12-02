@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca60734d7104b3e4eb8efab13dc0658b, type: 3}
+  m_Name: Thyme
+  m_EditorClassIdentifier: Assembly-CSharp::GarnishGameObject
+  _garnishType: 5
+  GarnishPrefab: {fileID: 6033345394121543860, guid: 294cec0130beec44e84a56271427f4c9, type: 3}

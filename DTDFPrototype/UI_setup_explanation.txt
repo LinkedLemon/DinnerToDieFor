@@ -1,0 +1,33 @@
+Here is how to set up the timer UI in the Unity Editor:
+
+1.  **Create the UI Canvas:**
+    *   In the Hierarchy window, right-click and go to `UI -> Canvas`. This will create a Canvas and an EventSystem. All UI elements must be children of a Canvas.
+
+2.  **Create the Timer Bar Background:**
+    *   Right-click on the `Canvas` in the Hierarchy and go to `UI -> Image`.
+    *   Rename this new Image GameObject to `TimerBar_Background`.
+    *   Select `TimerBar_Background` and in the Inspector, choose a color and sprite for it. A simple dark grey or a custom frame sprite works well.
+    *   Position and scale it on the screen where you want the timer to be.
+
+3.  **Create the Timer Bar Fill:**
+    *   Right-click on `TimerBar_Background` in the Hierarchy and go to `UI -> Image`.
+    *   Rename this new Image GameObject to `TimerBar_Fill`.
+    *   Select `TimerBar_Fill`. In the Inspector, find the `Rect Transform` component and anchor it to stretch to the full size of its parent (`TimerBar_Background`). You can do this by clicking the Anchor Presets box, holding `Alt+Shift`, and clicking the bottom-right stretch icon.
+    *   In the `Image` component of `TimerBar_Fill`:
+        *   Set `Image Type` to `Filled`.
+        *   Set `Fill Method` to `Horizontal`.
+        *   Set `Fill Origin` to `Right`. This will make the bar fill from right to left.
+
+4.  **Connect the UI to the CoreGameplayManager:**
+    *   Select the GameObject that has your `CoreGameplayManager` script on it.
+    *   In the Inspector, you will now see fields for `Timer Bar` and `Timer Gradient`.
+    *   Drag the `TimerBar_Fill` GameObject from the Hierarchy into the `Timer Bar` field.
+
+5.  **Create the Gradient:**
+    *   In the `CoreGameplayManager` component, click on the `Timer Gradient` field. The Gradient Editor window will pop up.
+    *   A gradient has two sets of keys: top keys for alpha (transparency) and bottom keys for color.
+    *   Click on the bottom-left color key. Set its `Color` to a bright green.
+    *   Click on the bottom-right color key. Set its `Color` to a bright red.
+    *   You can add more keys in between for a smoother transition if you like (e.g., a yellow in the middle).
+
+Now, when you run the game and it enters the `ModifyOrderState`, the `TimerBar_Fill` image will start full (green) and deplete towards the left, changing color to red as it goes.

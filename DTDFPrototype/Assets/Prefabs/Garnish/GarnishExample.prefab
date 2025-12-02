@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 3298630079453987294}
   - component: {fileID: 6080731006816591377}
   - component: {fileID: 2406995551423619248}
-  - component: {fileID: 2795165493692977509}
-  - component: {fileID: -6801423262375583086}
   m_Layer: 0
   m_Name: GarnishExample
   m_TagString: Untagged
@@ -140,29 +138,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &2795165493692977509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001376058703466382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05a853884fe43674294dbed163759aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GarnishTrayGlue
---- !u!114 &-6801423262375583086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001376058703466382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f40506373ae9a49bfbc2264c4549b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AdditiveScript
-  _additive: {fileID: 11400000, guid: 4cd163dbdd2263d4b9c8aab879eb2f4a, type: 2}
+  m_CollisionDetection: 2
