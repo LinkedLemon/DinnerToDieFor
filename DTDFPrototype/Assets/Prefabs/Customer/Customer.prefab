@@ -171,9 +171,9 @@ MonoBehaviour:
   _agent: {fileID: 4849215194083455238}
   _textMeshPro: {fileID: 4737147380426918563}
   modelVisuals: {fileID: 5207922326708336903}
-  goodParticle: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
-  mehParticle: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
-  badParticle: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
+  goodParticle: {fileID: 2805926973568923482, guid: 0dda802bc4a742746abb77bb8194d920, type: 3}
+  mehParticle: {fileID: 2805926973568923482, guid: 274e602198c03d1449a72e29a3af1805, type: 3}
+  badParticle: {fileID: 2805926973568923482, guid: 873649b613125c14d80a154f9aecc544, type: 3}
   deadParticle: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
   particleSpawnPoint: {fileID: 6879267701324832651}
 --- !u!195 &4849215194083455238
