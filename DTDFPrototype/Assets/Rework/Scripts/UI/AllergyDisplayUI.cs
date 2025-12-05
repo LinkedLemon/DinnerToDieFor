@@ -10,8 +10,9 @@ public class AllergyDisplayUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [Header("Data Binding")]
     [Tooltip("List of TextMeshPro components for Customer Names, corresponding to the 5 seats.")]
     [SerializeField] private List<TextMeshProUGUI> nameTexts;
-    [Tooltip("List of TextMeshPro components for Allergy Names, corresponding to the 5 seats.")]
-    [SerializeField] private List<TextMeshProUGUI> allergyTexts;
+    
+    [Tooltip("List of Allergy Grid Buttons. Should be 25 buttons (5 customers * 5 garnishes).")]
+    [SerializeField] private List<AllergyGridButton> gridButtons;
 
     [Header("Animation Settings")]
     [Tooltip("The RectTransform of the paper/panel to animate.")]
@@ -69,22 +70,86 @@ public class AllergyDisplayUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
         if (RoundManager.Instance == null) return;
         
         var customers = RoundManager.Instance.ActiveCustomers;
+        bool isNewGame = RoundManager.Instance.RoundCount == 1;
         
-        for (int i = 0; i < nameTexts.Count; i++)
+        // Define the column order strictly matching the expected UI layout:
+        // Columns (Left to Right): Paprika, Olives, Cherry, Thyme, Cocktail Sword
+        List<GarnishEnums.GarnishType> garnishColumns = new List<GarnishEnums.GarnishType>
         {
-            if (nameTexts[i] == null || allergyTexts[i] == null) continue;
+            GarnishEnums.GarnishType.paprika,
+            GarnishEnums.GarnishType.olive,
+            GarnishEnums.GarnishType.cherry,
+            GarnishEnums.GarnishType.thyme,
+            GarnishEnums.GarnishType.sword // Assuming 'cocktail sword' maps to 'sword' enum
+        };
 
-            if (i < customers.Count)
+        int garnishCount = garnishColumns.Count;
+        int customerCount = nameTexts.Count; // Assuming nameTexts count matches active customer count (5)
+
+        for (int i = 0; i < customerCount; i++) // Customers (Rows)
+        {
+            if (nameTexts[i] == null) continue;
+
+            CustomerRuntimeData customer = (i < customers.Count) ? customers[i] : null;
+
+            // Update Name
+            if (customer != null)
             {
-                CustomerRuntimeData customer = customers[i];
                 nameTexts[i].text = customer.Data.CustomerName;
-                allergyTexts[i].text = customer.CurrentAllergy.ToString();
             }
             else
             {
-                // Clear slots if fewer customers than texts
                 nameTexts[i].text = "";
-                allergyTexts[i].text = "";
+            }
+
+            // Update Grid Buttons for this customer (Row i)
+            for (int j = 0; j < garnishCount; j++) // Garnishes (Columns)
+            {
+                // Column-major order: iterate down each column first, then move to the next column.
+                int buttonIndex = j * customerCount + i; 
+                if (buttonIndex >= gridButtons.Count)
+                {
+                    Debug.LogWarning($"Button index {buttonIndex} out of bounds for gridButtons. Ensure gridButtons list is populated correctly (Expected: {garnishCount * customerCount}, Actual: {gridButtons.Count}).");
+                    break;
+                }
+
+                AllergyGridButton button = gridButtons[buttonIndex];
+                if (button == null) continue;
+
+                if (customer == null)
+                {
+                    button.gameObject.SetActive(false);
+                    continue;
+                }
+                
+                button.gameObject.SetActive(true);
+
+                if (isNewGame)
+                {
+                    button.ResetToDefault();
+                }
+
+                if (!customer.IsAlive)
+                {
+                    // Lock entire row to Dead if customer is dead
+                    button.SetLockedState(true, false);
+                }
+                else
+                {
+                    // Check if this column corresponds to the customer's allergy
+                    GarnishEnums.GarnishType columnType = garnishColumns[j];
+                    
+                    if (customer.CurrentAllergy == columnType)
+                    {
+                        // Lock to Allergy Icon
+                        button.SetLockedState(false, true);
+                    }
+                    else
+                    {
+                        // Unlock (allows player to cycle notes)
+                        button.Unlock();
+                    }
+                }
             }
         }
     }

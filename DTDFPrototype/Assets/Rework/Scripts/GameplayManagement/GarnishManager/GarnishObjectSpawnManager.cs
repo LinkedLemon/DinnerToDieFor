@@ -194,6 +194,12 @@ public class GarnishObjectSpawnManager : MonoBehaviour
         currentObjectRigidbody.isKinematic = false;
         currentObjectRigidbody.useGravity = true;
 
+        // Try to get GarnishProvider and start despawn timer
+        if (currentFollowingObject.TryGetComponent<GarnishProvider>(out var garnishProvider))
+        {
+            garnishProvider.StartDespawnTimer();
+        }
+
         // Destroy the drop indicator
         if (currentDropIndicator != null)
         {

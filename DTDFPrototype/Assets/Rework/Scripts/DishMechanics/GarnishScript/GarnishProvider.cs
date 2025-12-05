@@ -13,7 +13,9 @@ public class GarnishProvider : MonoBehaviour
 
     public GarnishGameObject GarnishData => garnishData;
 
-    private void Start()
+
+
+    public void StartDespawnTimer()
     {
         StartCoroutine(nameof(Despawn));
     }
