@@ -78,6 +78,8 @@ public class CustomerAI : MonoBehaviour
         {
             Vector3 spawnPos = particleSpawnPoint != null ? particleSpawnPoint.position : transform.position + Vector3.up * 2f;
             Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+
+            ParticleManager.instance.gameObject.GetComponent<ParticleManager>().SpawnGameObjectWithEmit(prefabToSpawn, spawnPos, 0, 1);
         }
     }
 }

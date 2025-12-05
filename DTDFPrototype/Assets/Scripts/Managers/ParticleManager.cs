@@ -78,6 +78,35 @@ public class ParticleManager : MonoBehaviour
         StartCoroutine(DespawnParticle(particleGM, despawnTimer));
     }
 
+    public void SpawnGameObject(GameObject particle, Vector3 position, float despawnTimer)
+    {
+        GameObject particleGM = Instantiate(particle, position, particle.transform.rotation);
+        particleGM.transform.position = position;
+        ParticleSystem PSystem = particleGM.GetComponent<ParticleSystem>();
+        if (PSystem == null)
+        {
+            Debug.LogError("Game object doesn't have a particle system");
+            return;
+        }
+        PSystem.Play();
+        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+    }
+
+    //For spawning the paricles that emits a specific amount of particles
+    public void SpawnGameObjectWithEmit(GameObject particle, Vector3 position, float despawnTimer, int particleCount)
+    {
+        GameObject particleGM = Instantiate(particle, position, particle.transform.rotation);
+        particleGM.transform.position = position;
+        ParticleSystem PSystem = particleGM.GetComponent<ParticleSystem>();
+        if (PSystem == null)
+        {
+            Debug.LogError("Game object doesn't have a particle system");
+            return;
+        }
+        PSystem.Emit(particleCount);
+        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+    }
+
     IEnumerator DespawnParticle(GameObject particleGM, float despawnTimer)
     {
         yield return new WaitForSeconds(despawnTimer);
