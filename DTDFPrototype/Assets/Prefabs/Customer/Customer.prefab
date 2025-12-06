@@ -313,6 +313,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  _renderer: {fileID: 6435363570194193456}
+  _maxRage: 20
 --- !u!1 &8719844395322873322
 GameObject:
   m_ObjectHideFlags: 0

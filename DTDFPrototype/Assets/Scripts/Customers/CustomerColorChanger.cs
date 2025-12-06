@@ -6,13 +6,10 @@ public class CustomerColorChanger : MonoBehaviour
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private float _maxRage;
     private Material _material;
-
-
-    private void Start()
+    private void Awake()
     {
-        _material = _renderer.material;
+        _material = _renderer.materials[0];
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public void UpdateColor(float number)
     {
