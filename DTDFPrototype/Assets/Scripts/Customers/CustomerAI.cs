@@ -16,12 +16,12 @@ public class CustomerAI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textMeshPro;
     [SerializeField] private GameObject modelVisuals;
     
-    [Header("Reaction Particles")]
-    [SerializeField] private GameObject goodParticle;
-    [SerializeField] private GameObject mehParticle;
-    [SerializeField] private GameObject badParticle;
-    [SerializeField] private GameObject deadParticle;
-    [SerializeField] private Transform particleSpawnPoint;
+    [Header("Reaction Visuals")]
+    [SerializeField] private Renderer reactionPlaneRenderer;
+    [SerializeField] private Texture happyTexture;
+    [SerializeField] private Texture neutralTexture;
+    [SerializeField] private Texture dislikeTexture;
+    [SerializeField] private Texture deadTexture;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -56,30 +56,33 @@ public class CustomerAI : MonoBehaviour
 
     public void DoReaction(CustomerReaction reaction)
     {
-        GameObject prefabToSpawn = null;
+        if (reactionPlaneRenderer == null) return;
 
-        switch(reaction)
+        // Ensure the GameObject itself is active
+        if (!reactionPlaneRenderer.gameObject.activeSelf)
+        {
+            reactionPlaneRenderer.gameObject.SetActive(true);
+        }
+        
+        Texture textureToApply = neutralTexture;
+
+        switch (reaction)
         {
             case CustomerReaction.dead:
-                prefabToSpawn = deadParticle;
+                textureToApply = deadTexture;
                 break;
             case CustomerReaction.happy:
-                prefabToSpawn = goodParticle;
+                textureToApply = happyTexture;
                 break;
             case CustomerReaction.dislike:
-                prefabToSpawn = badParticle;
+                textureToApply = dislikeTexture;
                 break;
             case CustomerReaction.neutral:
-                prefabToSpawn = mehParticle;
+                textureToApply = neutralTexture;
                 break;
         }
 
-        if (prefabToSpawn != null)
-        {
-            Vector3 spawnPos = particleSpawnPoint != null ? particleSpawnPoint.position : transform.position + Vector3.up * 2f;
-            Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
-
-            ParticleManager.instance.gameObject.GetComponent<ParticleManager>().SpawnGameObjectWithEmit(prefabToSpawn, spawnPos, 0, 1);
-        }
+        reactionPlaneRenderer.material.mainTexture = textureToApply;
+        reactionPlaneRenderer.enabled = true;
     }
 }

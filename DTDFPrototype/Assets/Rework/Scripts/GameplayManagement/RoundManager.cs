@@ -103,13 +103,12 @@ public class RoundManager : MonoBehaviour
     public void StartNewRound()
     {
         RoundCount++;
-        AssignDishes();
-        OnNewRoundStarted?.Invoke();
         
         // Handle Spy Kill logic if applicable
+        // Occurs every 2 rounds (starting round 3: 3, 5, 7...)
         if (RoundCount > 1 && RoundCount % 2 != 0) 
         {
-            if (RoundCount >= 3 && (RoundCount % 2 != 0)) 
+            if (RoundCount >= 3) 
             {
                 SpyKill();
             }
@@ -119,6 +118,11 @@ public class RoundManager : MonoBehaviour
         {
             Debug.Log("Game Over: Spy won by killing everyone.");
             if (CustomerAIManager.instance != null) CustomerAIManager.instance.ClearAllCustomers();
+            
+            SpyCatchStreak = 0;
+            OnSpyStreakChanged?.Invoke(SpyCatchStreak);
+            OnGameLost?.Invoke();
+            
             StartNewGame();
             return; 
         }
@@ -127,6 +131,9 @@ public class RoundManager : MonoBehaviour
         {
             ShiftSpyTastes();
         }
+
+        AssignDishes();
+        OnNewRoundStarted?.Invoke();
     }
 
 
@@ -142,15 +149,16 @@ public class RoundManager : MonoBehaviour
         
         Debug.Log($"[RoundManager] Attempting to spawn dishes. Active Customers: {ActiveCustomers.Count}. Spawn Points: {spawnPoints.Count}");
 
-        int pointIndex = 0;
-        foreach (var customer in ActiveCustomers)
+        for (int i = 0; i < ActiveCustomers.Count; i++)
         {
+            var customer = ActiveCustomers[i];
+            
             if (!customer.IsAlive) continue;
 
-            if (pointIndex >= spawnPoints.Count)
+            if (i >= spawnPoints.Count)
             {
-                Debug.LogWarning("[RoundManager] Not enough spawn points for all alive customers!");
-                break;
+                Debug.LogWarning($"[RoundManager] Not enough spawn points! Customer index {i} exceeds spawn points count {spawnPoints.Count}.");
+                continue;
             }
 
             if (customer.AssignedDish == null)
@@ -165,7 +173,7 @@ public class RoundManager : MonoBehaviour
                 continue;
             }
 
-            Transform spawnPoint = spawnPoints[pointIndex];
+            Transform spawnPoint = spawnPoints[i];
             GameObject dishObj = Instantiate(customer.AssignedDish.DishPrefab, spawnPoint);
             dishObj.transform.localPosition = Vector3.zero;
             dishObj.transform.localRotation = Quaternion.identity;
@@ -189,8 +197,7 @@ public class RoundManager : MonoBehaviour
             }
             
             _currentRoundDishes.Add(activeDish);
-            Debug.Log($"[RoundManager] Spawned dish for {customer.Data.CustomerName} at Spawn Point {pointIndex}.");
-            pointIndex++;
+            Debug.Log($"[RoundManager] Spawned dish for {customer.Data.CustomerName} at Spawn Point {i}.");
         }
     }
 

@@ -98,6 +98,7 @@ public class GameplayManager : MonoBehaviour
         {
             _currentState.Exit();
         }
+        ParticleManager.instance.ClearActiveParticles();
 
         _currentState = newState;
         _currentState.Enter();
@@ -135,6 +136,7 @@ public class GameplayManager : MonoBehaviour
         {
             roundManager.CleanupAndStartNextRound();
         }
+        ParticleManager.instance.ClearActiveParticles();
         OnRoundEnded?.Invoke();
     }
 

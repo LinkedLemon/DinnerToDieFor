@@ -15,6 +15,7 @@ public class ParticleManager : MonoBehaviour
     public static ParticleManager instance;
 
     private Dictionary<Particle,GameObject> _particleTypes = new Dictionary<Particle,GameObject>();
+    private List<GameObject> _activeParticles = new List<GameObject>();
 
     [SerializeField] private List<GameObject> _prefabs = new List<GameObject>();
     [SerializeField] private List<Particle> _enumerators = new List<Particle>();
@@ -39,7 +40,7 @@ public class ParticleManager : MonoBehaviour
 
     //For spawning the paricles that spawn based on rate over time
     //Position has to be in world space
-    public void SpawnParticle(Particle particle,Vector3 position,float despawnTimer)
+    public void SpawnParticle(Particle particle,Vector3 position,float despawnTimer, bool keepAlive)
     {
         if (_particleTypes[particle] == null)
         {
@@ -55,30 +56,47 @@ public class ParticleManager : MonoBehaviour
             return;
         }
         PSystem.Play();
-        StartCoroutine(DespawnParticle(particleGM,despawnTimer));
+        if(!keepAlive)
+        {
+            StartCoroutine(DespawnParticle(particleGM,despawnTimer));
+        }
+        else
+        {
+            _activeParticles.Add(particleGM);
+        }
     }
 
     //For spawning the paricles that emits a specific amount of particles
-    public void SpawnParticleWithEmit(Particle particle, Vector3 position, float despawnTimer,int particleCount)
+    public void SpawnParticleWithEmit(Particle particle, Vector3 position, float despawnTimer,int particleCount, bool keepAlive)
     {
         if (_particleTypes[particle] == null)
         {
             Debug.LogError("Given value doesn't have a game object");
             return;
         }
-        GameObject particleGM = Instantiate(_particleTypes[particle], position, _particleTypes[particle].transform.rotation);
-        particleGM.transform.position = position;
-        ParticleSystem PSystem = particleGM.GetComponent<ParticleSystem>();
-        if (PSystem == null)
-        {
-            Debug.LogError("Game object doesn't have a particle system");
-            return;
-        }
-        PSystem.Emit(particleCount);
-        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
-    }
+                    GameObject particleGM = Instantiate(_particleTypes[particle], position, _particleTypes[particle].transform.rotation);
+                    particleGM.transform.position = position;
+                    ParticleSystem PSystem = particleGM.GetComponent<ParticleSystem>();
+                            if (PSystem == null)
+                            {
+                                Debug.LogError("Game object doesn't have a particle system");
+                                return;
+                            }
+                            if (keepAlive)
+                            {
+                                var main = PSystem.main;
+                                main.startLifetime = 10000f;
+                            }
+                            PSystem.Emit(particleCount);                    if(!keepAlive)
+                    {
+                        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+                    }
+                    else
+                    {
+                        _activeParticles.Add(particleGM);
+                    }    }
 
-    public void SpawnGameObject(GameObject particle, Vector3 position, float despawnTimer)
+    public void SpawnGameObject(GameObject particle, Vector3 position, float despawnTimer, bool keepAlive)
     {
         GameObject particleGM = Instantiate(particle, position, particle.transform.rotation);
         particleGM.transform.position = position;
@@ -89,11 +107,18 @@ public class ParticleManager : MonoBehaviour
             return;
         }
         PSystem.Play();
-        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+        if(!keepAlive)
+        {
+            StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+        }
+        else
+        {
+            _activeParticles.Add(particleGM);
+        }
     }
 
     //For spawning the paricles that emits a specific amount of particles
-    public void SpawnGameObjectWithEmit(GameObject particle, Vector3 position, float despawnTimer, int particleCount)
+    public void SpawnGameObjectWithEmit(GameObject particle, Vector3 position, float despawnTimer, int particleCount, bool keepAlive)
     {
         GameObject particleGM = Instantiate(particle, position, particle.transform.rotation);
         particleGM.transform.position = position;
@@ -103,8 +128,20 @@ public class ParticleManager : MonoBehaviour
             Debug.LogError("Game object doesn't have a particle system");
             return;
         }
+        if (keepAlive)
+        {
+            var main = PSystem.main;
+            main.startLifetime = 10000f;
+        }
         PSystem.Emit(particleCount);
-        StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+        if(!keepAlive)
+        {
+            StartCoroutine(DespawnParticle(particleGM, despawnTimer));
+        }
+        else
+        {
+            _activeParticles.Add(particleGM);
+        }
     }
 
     IEnumerator DespawnParticle(GameObject particleGM, float despawnTimer)
@@ -113,5 +150,17 @@ public class ParticleManager : MonoBehaviour
         particleGM.GetComponent<ParticleSystem>().Stop(false, ParticleSystemStopBehavior.StopEmitting);
         yield return new WaitForSeconds(particleGM.GetComponent<ParticleSystem>().main.startLifetime.constant);
         Destroy(particleGM);
+    }
+
+    public void ClearActiveParticles()
+    {
+        foreach (GameObject particleGM in _activeParticles)
+        {
+            if (particleGM != null)
+            {
+                Destroy(particleGM);
+            }
+        }
+        _activeParticles.Clear();
     }
 }
