@@ -5,9 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - iconImage: {instanceID: 0}
-  - happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  - neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  - upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  - happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  - neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  - upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   - deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   - allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   executionOrder: 0

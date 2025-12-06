@@ -113,6 +113,7 @@ public class GameplayManager : MonoBehaviour
             roundManager.SpawnDishesOnTray(trayManager.DishSpawnPoints);
         }
         trayManager.SendOrder();
+        if (cameraControl != null) cameraControl.TriggerLookDown();
         TransitionToState(ModifyOrderState);
     }
 

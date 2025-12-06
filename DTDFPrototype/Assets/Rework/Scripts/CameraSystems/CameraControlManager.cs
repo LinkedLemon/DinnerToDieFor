@@ -29,19 +29,24 @@ public class CameraControlManager : MonoBehaviour
         if (lookUpButton != null)
         {
             lookUpButton.onClick.AddListener(OnLookUpClicked);
-            lookUpButton.gameObject.SetActive(true);
+            lookUpButton.gameObject.SetActive(false);
         }
 
         if (lookDownButton != null)
         {
             lookDownButton.onClick.AddListener(OnLookDownClicked);
-            lookDownButton.gameObject.SetActive(false);
+            lookDownButton.gameObject.SetActive(true);
         }
     }
 
     public void TriggerLookUp()
     {
         OnLookUpClicked();
+    }
+
+    public void TriggerLookDown()
+    {
+        OnLookDownClicked();
     }
 
     private void OnLookUpClicked()

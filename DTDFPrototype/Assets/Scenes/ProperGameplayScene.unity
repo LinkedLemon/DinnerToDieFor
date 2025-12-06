@@ -381,9 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1176774719}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &35872762
@@ -950,9 +950,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1539346875}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &109894233
@@ -2423,9 +2423,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 189267229}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &395440905
@@ -2737,9 +2737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 2061922640}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &431502231
@@ -3288,9 +3288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1458501702}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &447129064
@@ -3428,9 +3428,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 326937830}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &452087437
@@ -3984,9 +3984,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1543963648}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &516687344
@@ -5198,9 +5198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1928882588}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &713468170
@@ -5916,9 +5916,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 140438736}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &849304219
@@ -6561,9 +6561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 431502233}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &936448606
@@ -7046,9 +7046,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1726415936}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1029083307
@@ -7186,9 +7186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 97095219}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1033685625
@@ -7326,9 +7326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 2016197900}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1036265632
@@ -7466,9 +7466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1587126191}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1036782899
@@ -7799,9 +7799,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 713468172}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1078486813
@@ -7998,6 +7998,7 @@ RectTransform:
   - {fileID: 1510807955}
   - {fileID: 1864457626}
   - {fileID: 1036265633}
+  - {fileID: 1199663142}
   m_Father: {fileID: 1235146057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -8025,7 +8026,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 7f37853a5edf2fd4f8fbdcc164656721, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -8175,9 +8176,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 2048816771}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1121252573
@@ -8807,6 +8808,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176774717}
   m_CullTransparentMesh: 1
+--- !u!1 &1199663141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1199663142}
+  - component: {fileID: 1199663144}
+  - component: {fileID: 1199663143}
+  m_Layer: 0
+  m_Name: RawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1199663142
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199663141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1085058922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -294, y: 387}
+  m_SizeDelta: {x: 213.07, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1199663143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199663141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 7f37853a5edf2fd4f8fbdcc164656721, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1199663144
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199663141}
+  m_CullTransparentMesh: 1
 --- !u!4 &1200830865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5531384602387681844, guid: 9fd2379678aedcc4788ebd6e725eee06, type: 3}
@@ -9377,9 +9450,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1585392225}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1288843280
@@ -10355,9 +10428,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 475755423}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1519431666
@@ -10970,9 +11043,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1825074508}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1585392223
@@ -11816,9 +11889,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 898737748}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1704613673
@@ -12083,9 +12156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 2060815886}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1726415934
@@ -12398,9 +12471,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 37990864}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1742476228
@@ -13060,9 +13133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 446050889}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1876277509
@@ -13200,9 +13273,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1562831548}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &1891296658
@@ -13957,9 +14030,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllergyGridButton
   iconImage: {fileID: 1483061213}
-  happyIcon: {fileID: 2800000, guid: 05d3d55aea39cc740b360b48a49a9692, type: 3}
-  neutralIcon: {fileID: 2800000, guid: b6b98eec4f5a6d842b863e97000793c7, type: 3}
-  upsetIcon: {fileID: 2800000, guid: 8e0f54d4c9994f94dacf3d54fb8feeef, type: 3}
+  happyIcon: {fileID: 2800000, guid: 37e1087c5226e4944925d687ff0a73a4, type: 3}
+  neutralIcon: {fileID: 2800000, guid: eb53f75c720583e419685dc8d4372e6c, type: 3}
+  upsetIcon: {fileID: 2800000, guid: 5d7a1859c221d28499fb248ee4670a06, type: 3}
   deadIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
   allergyIcon: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!1 &2015771337
