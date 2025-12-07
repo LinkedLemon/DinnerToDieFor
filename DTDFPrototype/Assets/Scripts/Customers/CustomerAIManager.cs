@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CustomerAIManager : MonoBehaviour
@@ -45,6 +46,7 @@ public class CustomerAIManager : MonoBehaviour
             {
                 ai.WalkToSpot(_seats[i].position);
                 ai.SetName(customers[i].Data.CustomerName);
+                //newCustomer.GetComponent<CustomerColorChanger>().UpdateColor(UnityEngine.Random.Range(0,20));
                 _customerMap.Add(customers[i], ai);
             }
         }
