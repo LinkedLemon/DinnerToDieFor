@@ -22,7 +22,7 @@ public class CustomerRuntimeData
     {
         Data = data;
         IsSpy = isSpy;
-        Patience = 10; // Starts at 10
+        Patience = 15; // Starts at 15 (now takes 3 bad dishes to leave)
         IsAlive = true;
         
         // Deep copy lists so we don't modify the SO asset
@@ -458,6 +458,10 @@ public class RoundManager : MonoBehaviour
                 {
                     customer.ModifyPatience(patienceChange);
                     Debug.Log($"Customer {customer.Data.CustomerName} reaction: {result.Reaction}. Patience change: {patienceChange}. Current: {customer.Patience}");
+                    if (CustomerAIManager.instance != null)
+                    {
+                        CustomerAIManager.instance.UpdateCustomerColor(customer);
+                    }
                 }
                 else
                 {

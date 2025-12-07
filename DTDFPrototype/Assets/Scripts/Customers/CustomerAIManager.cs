@@ -46,8 +46,20 @@ public class CustomerAIManager : MonoBehaviour
             {
                 ai.WalkToSpot(_seats[i].position);
                 ai.SetName(customers[i].Data.CustomerName);
-                //newCustomer.GetComponent<CustomerColorChanger>().UpdateColor(UnityEngine.Random.Range(0,20));
                 _customerMap.Add(customers[i], ai);
+                UpdateCustomerColor(customers[i]);
+            }
+        }
+    }
+
+    public void UpdateCustomerColor(CustomerRuntimeData data)
+    {
+        if (_customerMap.TryGetValue(data, out CustomerAI ai))
+        {
+            CustomerColorChanger colorChanger = ai.GetComponent<CustomerColorChanger>();
+            if (colorChanger != null)
+            {
+                colorChanger.UpdateColor(data.Patience);
             }
         }
     }
