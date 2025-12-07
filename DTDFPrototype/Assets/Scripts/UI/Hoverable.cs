@@ -21,9 +21,20 @@ public class Hoverable : MonoBehaviour
     [Tooltip("The time it takes for the text to scale in and out.")]
     public float animationTime = 0.2f;
 
+    [Tooltip("If true, the label will always be visible, disregarding raycasts.")]
+    public bool alwaysVisible = false;
+
     private TextMeshPro _textMeshPro;
     private GameObject _textObject;
     private Coroutine _animationCoroutine;
+
+    void Start()
+    {
+        if (alwaysVisible)
+        {
+            OnHoverEnter();
+        }
+    }
 
     public void OnHoverEnter()
     {
@@ -54,6 +65,8 @@ public class Hoverable : MonoBehaviour
 
     public void OnHoverExit()
     {
+        if (alwaysVisible) return;
+        
         if (_textObject != null)
         {
             if (_animationCoroutine != null)

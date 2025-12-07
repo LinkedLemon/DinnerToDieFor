@@ -368,6 +368,7 @@ MonoBehaviour:
   fontSize: 1
   textColor: {r: 1, g: 1, b: 1, a: 1}
   animationTime: 0.2
+  alwaysVisible: 1
 --- !u!65 &1705750081277982357
 BoxCollider:
   m_ObjectHideFlags: 0
