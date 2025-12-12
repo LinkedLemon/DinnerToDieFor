@@ -64,6 +64,8 @@ public class RoundManager : MonoBehaviour
     public UnityEvent OnGameWon;
     public UnityEvent OnGameLost;
     public UnityEvent<int> OnSpyStreakChanged = new UnityEvent<int>();
+    public UnityEvent OnSpyKill;
+    public UnityEvent OnNewGameStarted;
     
     private List<ActiveDish> _currentRoundDishes = new List<ActiveDish>();
     
@@ -84,6 +86,7 @@ public class RoundManager : MonoBehaviour
 
     private System.Collections.IEnumerator StartNewGameRoutine()
     {
+        OnNewGameStarted?.Invoke();
         CleanupDishes(); // Ensure tray is clear before starting new game
         
         RoundCount = 0;
@@ -322,6 +325,7 @@ public class RoundManager : MonoBehaviour
             CustomerRuntimeData victim = potentialVictims[Random.Range(0, potentialVictims.Count)];
             victim.IsAlive = false;
             Debug.Log($"Spy killed {victim.Data.CustomerName}!");
+            OnSpyKill?.Invoke();
             
             if (CustomerAIManager.instance != null)
             {

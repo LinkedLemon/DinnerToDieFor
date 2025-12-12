@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class CameraControlManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Animator cameraAnimator;
-    [Tooltip("The button at the top of the screen (to look up/at customers).")]
-    [SerializeField] private Button lookUpButton;
-    [Tooltip("The button at the bottom of the screen (to look down/at tray).")]
-    [SerializeField] private Button lookDownButton;
+    [Tooltip("The RawImage area at the top of the screen (to look up/at customers).")]
+    [SerializeField] private RawImage lookUpImage;
+    [Tooltip("The RawImage area at the bottom of the screen (to look down/at tray).")]
+    [SerializeField] private RawImage lookDownImage;
 
     [Header("Animation Settings")]
     [SerializeField] private string lookUpTrigger = "LookUp";
@@ -17,39 +18,66 @@ public class CameraControlManager : MonoBehaviour
     [Tooltip("Time in seconds for the animation to complete before showing the next button.")]
     [SerializeField] private float animationDuration = 1.0f;
 
+    // Helper class to handle hover events on non-Button UI elements
+    public class SimpleHoverListener : MonoBehaviour, IPointerEnterHandler
+    {
+        public System.Action onHover;
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            onHover?.Invoke();
+        }
+    }
+
     private void Start()
     {
         // Validate references
         if (cameraAnimator == null) Debug.LogError("CameraControlManager: Camera Animator is not assigned!");
-        if (lookUpButton == null) Debug.LogError("CameraControlManager: Look Up Button is not assigned!");
-        if (lookDownButton == null) Debug.LogError("CameraControlManager: Look Down Button is not assigned!");
+        if (lookUpImage == null) Debug.LogError("CameraControlManager: Look Up Image is not assigned!");
+        if (lookDownImage == null) Debug.LogError("CameraControlManager: Look Down Image is not assigned!");
+
+        // Setup hover listeners
+        SetupImageListener(lookUpImage, OnLookUpHover);
+        SetupImageListener(lookDownImage, OnLookDownHover);
 
         // Initial Setup: Assuming we start looking DOWN at the tray.
         // Therefore, we can Look Up.
-        if (lookUpButton != null)
+        if (lookUpImage != null)
         {
-            lookUpButton.onClick.AddListener(OnLookUpClicked);
-            lookUpButton.gameObject.SetActive(false);
+            lookUpImage.gameObject.SetActive(false);
         }
 
-        if (lookDownButton != null)
+        if (lookDownImage != null)
         {
-            lookDownButton.onClick.AddListener(OnLookDownClicked);
-            lookDownButton.gameObject.SetActive(true);
+            lookDownImage.gameObject.SetActive(true);
+        }
+    }
+
+    private void SetupImageListener(RawImage image, System.Action callback)
+    {
+        if (image != null)
+        {
+            // Add the listener component if it doesn't exist
+            SimpleHoverListener listener = image.gameObject.GetComponent<SimpleHoverListener>();
+            if (listener == null)
+            {
+                listener = image.gameObject.AddComponent<SimpleHoverListener>();
+            }
+            listener.onHover = callback;
         }
     }
 
     public void TriggerLookUp()
     {
-        OnLookUpClicked();
+        OnLookUpHover();
     }
 
     public void TriggerLookDown()
     {
-        OnLookDownClicked();
+        OnLookDownHover();
     }
 
-    private void OnLookUpClicked()
+    private void OnLookUpHover()
     {
         // Play Animation
         if (cameraAnimator != null)
@@ -59,13 +87,13 @@ public class CameraControlManager : MonoBehaviour
         }
 
         // Hide this button immediately
-        if (lookUpButton != null) lookUpButton.gameObject.SetActive(false);
+        if (lookUpImage != null) lookUpImage.gameObject.SetActive(false);
 
         // Enable the other button after delay
-        StartCoroutine(EnableButtonAfterDelay(lookDownButton, animationDuration));
+        StartCoroutine(EnableImageAfterDelay(lookDownImage, animationDuration));
     }
 
-    private void OnLookDownClicked()
+    private void OnLookDownHover()
     {
         // Play Animation
         if (cameraAnimator != null)
@@ -75,24 +103,18 @@ public class CameraControlManager : MonoBehaviour
         }
 
         // Hide this button immediately
-        if (lookDownButton != null) lookDownButton.gameObject.SetActive(false);
+        if (lookDownImage != null) lookDownImage.gameObject.SetActive(false);
 
         // Enable the other button after delay
-        StartCoroutine(EnableButtonAfterDelay(lookUpButton, animationDuration));
+        StartCoroutine(EnableImageAfterDelay(lookUpImage, animationDuration));
     }
 
-    private IEnumerator EnableButtonAfterDelay(Button buttonToEnable, float delay)
+    private IEnumerator EnableImageAfterDelay(RawImage imageToEnable, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (buttonToEnable != null)
+        if (imageToEnable != null)
         {
-            buttonToEnable.gameObject.SetActive(true);
+            imageToEnable.gameObject.SetActive(true);
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (lookUpButton != null) lookUpButton.onClick.RemoveListener(OnLookUpClicked);
-        if (lookDownButton != null) lookDownButton.onClick.RemoveListener(OnLookDownClicked);
     }
 }

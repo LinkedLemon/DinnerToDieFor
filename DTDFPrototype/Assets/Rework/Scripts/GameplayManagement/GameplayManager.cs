@@ -19,12 +19,16 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private AudioClip winSound;
     [SerializeField] private AudioClip loseSound;
 
+    [Header("UI")]
+    public GameInfoUI gameInfoUI;
+
     [Header("Events")]
     public UnityEvent OnOrderSubmitted;
     public UnityEvent OnRoundEnded;
 
     // State Machine
     private GameState _currentState;
+    private bool _hasShownFirstTutorial = false;
     
     public AwaitingOrderState AwaitingOrderState { get; private set; }
     public ModifyOrderState ModifyOrderState { get; private set; }
@@ -55,11 +59,37 @@ public class GameplayManager : MonoBehaviour
             roundManager.OnGameWon.AddListener(ShowWinScreen);
             roundManager.OnGameLost.AddListener(ShowLoseScreen);
 
+            roundManager.OnNewGameStarted.AddListener(HandleNewGameStarted);
+            roundManager.OnSpyKill.AddListener(HandleSpyKill);
+
             roundManager.StartNewGame();
         }
         // Removed manual TransitionToState here to wait for RoundManager
         
         SoundManager.instance.PlayMusic(MusicType.Game, 0.3f);
+    }
+
+    private void HandleNewGameStarted()
+    {
+        if (gameInfoUI == null) return;
+
+        if (!_hasShownFirstTutorial)
+        {
+            gameInfoUI.ShowStartPopup(autoHide: false);
+            _hasShownFirstTutorial = true;
+        }
+        else
+        {
+            gameInfoUI.ShowStartPopup(autoHide: true);
+        }
+    }
+
+    private void HandleSpyKill()
+    {
+        if (gameInfoUI != null)
+        {
+            gameInfoUI.ShowSpyKillPopup();
+        }
     }
 
     private void Update()
