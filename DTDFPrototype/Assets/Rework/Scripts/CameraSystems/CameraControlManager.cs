@@ -8,9 +8,9 @@ public class CameraControlManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator cameraAnimator;
     [Tooltip("The RawImage area at the top of the screen (to look up/at customers).")]
-    [SerializeField] private RawImage lookUpImage;
+    [SerializeField] private Image lookUpImage;
     [Tooltip("The RawImage area at the bottom of the screen (to look down/at tray).")]
-    [SerializeField] private RawImage lookDownImage;
+    [SerializeField] private Image lookDownImage;
 
     [Header("Animation Settings")]
     [SerializeField] private string lookUpTrigger = "LookUp";
@@ -53,7 +53,7 @@ public class CameraControlManager : MonoBehaviour
         }
     }
 
-    private void SetupImageListener(RawImage image, System.Action callback)
+    private void SetupImageListener(Image image, System.Action callback)
     {
         if (image != null)
         {
@@ -109,7 +109,7 @@ public class CameraControlManager : MonoBehaviour
         StartCoroutine(EnableImageAfterDelay(lookUpImage, animationDuration));
     }
 
-    private IEnumerator EnableImageAfterDelay(RawImage imageToEnable, float delay)
+    private IEnumerator EnableImageAfterDelay(Image imageToEnable, float delay)
     {
         yield return new WaitForSeconds(delay);
         if (imageToEnable != null)

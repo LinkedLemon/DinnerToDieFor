@@ -245,9 +245,9 @@ MonoBehaviour:
   _textMeshPro: {fileID: 4737147380426918563}
   modelVisuals: {fileID: 5207922326708336903}
   reactionPlaneRenderer: {fileID: 6722777817782155273}
-  happyTexture: {fileID: 2800000, guid: 2949388655d532648be6da3da7067227, type: 3}
-  neutralTexture: {fileID: 2800000, guid: a1f0a2027d1a80745a49ecd0aeae08c8, type: 3}
-  dislikeTexture: {fileID: 2800000, guid: 4c7e21ba87620cb4b8484699e603142d, type: 3}
+  happyTexture: {fileID: 2800000, guid: e2e10924a217a8e4eacb53ed553ecaa5, type: 3}
+  neutralTexture: {fileID: 2800000, guid: 4b2519488c1ce13419f1e29afcf88460, type: 3}
+  dislikeTexture: {fileID: 2800000, guid: 260d47e6e139e5a4bbc5969a56e86e5d, type: 3}
   deadTexture: {fileID: 2800000, guid: d21ac9919cf9192419b6aeb7f457e210, type: 3}
 --- !u!195 &4849215194083455238
 NavMeshAgent:
