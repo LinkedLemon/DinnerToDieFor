@@ -8466,7 +8466,7 @@ MonoBehaviour:
     garnishPrefab: {fileID: 1293513080206982499, guid: 1ffcacb992ffe124bb0d04fb71031589, type: 3}
   - garnishType: Cherry
     garnishPrefab: {fileID: 6260471278141328576, guid: 2d9f506e6fbccd646a2bbf495f7f0c46, type: 3}
-  spawnYPosition: 0.6
+  spawnYPosition: 0.3
   dropIndicatorPrefab: {fileID: 3337924409945550295, guid: 10de9f0da6fa9c5418a255c87ef618a6, type: 3}
   dropIndicatorYPosition: 0.1
 --- !u!4 &1170540234

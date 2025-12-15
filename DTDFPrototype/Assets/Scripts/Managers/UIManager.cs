@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _mainMenuPanel;
     [SerializeField] private GameObject _pauseMenuPanel;
     [SerializeField] private GameObject _loadingScreenPanel;
+    [SerializeField] private GameObject _infoScreen;
 
     private Stack<GameObject> _activePanels = new Stack<GameObject>();
 

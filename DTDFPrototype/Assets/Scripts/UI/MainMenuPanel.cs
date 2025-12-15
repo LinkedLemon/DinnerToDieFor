@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class MainMenuPanel : MonoBehaviour
 {
     [SerializeField] private Button _startGameButton;
+    private bool _readRules = false;
 
     private void Awake()
     {
@@ -15,9 +16,9 @@ public class MainMenuPanel : MonoBehaviour
 
     public void StartGame()
     {
-       // Debug.Log("Start Game button clicked!");
-        UIManager.Instance.HideAllPanels(); 
-        SceneLoader.Instance.LoadScene("ProperGameplayScene"); 
+            // Debug.Log("Start Game button clicked!");
+            UIManager.Instance.HideAllPanels();
+            SceneLoader.Instance.LoadScene("ProperGameplayScene");
     }
 
 
